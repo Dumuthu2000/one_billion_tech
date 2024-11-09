@@ -17,4 +17,4 @@ sequelize.authenticate()
     })
 
 
-module.exports = sequelize;
+export default sequelize;
