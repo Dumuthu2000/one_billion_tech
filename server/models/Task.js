@@ -20,6 +20,10 @@ const Task = sequelize.define('Task',{
         type: DataTypes.DATE,
         allowNull: false,
     },
+    dueTime: {
+        type: DataTypes.TIME,
+        allowNull: false,
+    },
     isComplete: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
@@ -29,7 +33,7 @@ const Task = sequelize.define('Task',{
         type: DataTypes.INTEGER,
         references: {
             model: User,
-            key: 'userID'
+            key: 'user_id'
         }
     },
 },{
@@ -38,4 +42,4 @@ const Task = sequelize.define('Task',{
     timestamps: true, // For adding createdAt and updatedAt for each coulumn
 });
 
-module.exports = Task;
+export default Task;

@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import sequelize from './config/dbConfig.js';
 import authRoutes from './routers/authRoutes.js';
+import taskRoutes from './routers/taskRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -14,7 +15,7 @@ app.use(cors());
 //Routes
 app.use('/api/auth', authRoutes);
 // app.use('/api/user',);
-// app.use('/api/task',);
+app.use('/api/task',taskRoutes);
 
 //Sync sequelize models with the database
 sequelize.sync()
