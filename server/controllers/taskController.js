@@ -103,7 +103,8 @@ export const updateTask=async(req, res)=>{
             dueTime, 
             isComplete},{
             where: {
-                taskId: id, userId 
+                taskId: id, 
+                userId 
             }
         });
          //Check if any rows were updated
@@ -124,5 +125,37 @@ export const updateTask=async(req, res)=>{
             message: "Internal server error",
             error: error.message,
         });
+    }
+}
+
+//Delete task functionality
+export const deleteTask=async(req, res)=>{
+    const{ id } = req.params; // Get the task ID from URL params
+    const userId = req.user.id; // Access user ID from the JWT token
+
+    try {
+       const deletedTask = await Task.destroy({where: {
+        taskId: id, 
+        userId
+       }});
+
+       // Check if the task was found and deleted
+       if(deletedTask === 0){
+        return res.status(404).json({
+            success: false,
+            message: "Task not found or you don't have permission to delete it.",
+        });
+       }
+
+       return res.status(200).json({
+        status: true,
+        message: "Task deleted successfully",
+       });
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            message: "Internal server error",
+            error: error.message,
+        }); 
     }
 }
