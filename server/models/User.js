@@ -3,7 +3,7 @@ import { DataTypes } from 'sequelize';
 
 //Creating user model for users table
 const User = sequelize.define('User',{
-    id: {
+    userId: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
@@ -31,6 +31,7 @@ const User = sequelize.define('User',{
     }
 },{
     tableName: 'users',
+    underscored: true,
     timestamps: true // For adding createdAt and updatedAt for each coulumn
 });
 
