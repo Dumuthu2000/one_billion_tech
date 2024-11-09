@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import sequelize from './config/dbConfig.js';
+import authRoutes from './routers/authRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -10,6 +12,17 @@ app.use(express.json());
 app.use(cors());
 
 //Routes
+app.use('/api/auth', authRoutes);
+// app.use('/api/user',);
+// app.use('/api/task',);
+
+//Sync sequelize models with the database
+sequelize.sync()
+    .then(()=>{
+        console.log("All the tables are created in the database");
+    }).catch((err)=>{
+        console.log("Error creating tables", err.message);
+    })
 
 //Server starting
 const PORT = process.env.PORT || 5000;
