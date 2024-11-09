@@ -1,4 +1,4 @@
-import sequelize from '../config/dbConfig';
+import sequelize from '../config/dbConfig.js';
 import { DataTypes } from 'sequelize';
 
 //Creating user model for users table
@@ -24,10 +24,6 @@ const User = sequelize.define('User',{
     password: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    confirmPassword: {
-        type: DataTypes.STRING,
-        allowNull: false,
     }
 },{
     tableName: 'users',
@@ -35,4 +31,4 @@ const User = sequelize.define('User',{
     timestamps: true // For adding createdAt and updatedAt for each coulumn
 });
 
-module.exports = User;
+export default User;
