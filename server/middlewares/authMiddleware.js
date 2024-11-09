@@ -4,7 +4,7 @@ dotenv.config();
 
 export const verifyToken=(req, res, next)=>{
     //Spliting token from request header
-    const token = req.headers['Authorization'].split(' ')[1];
+    const token = req.headers['Authorization']?.split(' ')[1];
 
     //Check the token
     if(!token){
