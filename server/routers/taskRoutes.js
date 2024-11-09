@@ -1,8 +1,10 @@
 import express from 'express'
 import { createTask } from '../controllers/taskController.js';
-const router = express.Router();
 import { validateTask } from '../middlewares/taskValidator.js';
+import { verifyToken } from '../middlewares/authMiddleware.js';
 
-router.post('/create-task', validateTask, createTask);
+const router = express.Router();
+
+router.post('/create-task', verifyToken, validateTask, createTask);
 
 export default router;

@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import cookie from 'cookie-parser';
 import { validationResult } from 'express-validator';
 
 //User register
@@ -29,6 +30,12 @@ export const registerUser=async(req, res)=>{
         //Create jwt token
         const payload = {id: user.userId};
         const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: '1hr'});
+
+         //Setting up JWT token in cookie
+         res.cookie('token', token, {
+            httpOnly: true,
+            expires: new Date(Date.now() + 3600000) //Token expiretion time (1 hour)
+        })
 
         return res.status(201).json({
             token, 
@@ -68,14 +75,25 @@ export const loginUser=async(req, res)=>{
         const payload = {id: user.userId};
         const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: '1hr'});
 
+        //Setting up JWT token in cookie
+        res.cookie('token', token, {
+            httpOnly: true,
+            expires: new Date(Date.now() + 3600000) //Token expiretion time (1 hour)
+        })
+
         return res.status(201).json({
+            status: true,
             token, 
-            user:{id: user.userId, email}, 
+            data:{id: user.userId, email}, 
             message:"User is logged successfully",
         });
 
     } catch (error) {
         console.log(error.message)
-        return res.status(500).json({error: "Server error"});
+        return res.status(500).json({
+            status: false,
+            message: "Internal server error",
+            error: error.message
+        });
     }
 }

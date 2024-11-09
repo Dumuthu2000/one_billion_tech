@@ -31,6 +31,7 @@ const Task = sequelize.define('Task',{
     //References for a users table
     userId: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         references: {
             model: User,
             key: 'user_id'

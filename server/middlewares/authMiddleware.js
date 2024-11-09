@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
+import jwt from 'jsonwebtoken';
 
 export const verifyToken=(req, res, next)=>{
     //Spliting token from request header
@@ -8,7 +8,10 @@ export const verifyToken=(req, res, next)=>{
 
     //Check the token
     if(!token){
-        return res.status(401).json({ message: 'Access denied. No token provided.' });
+        return res.status(401).json({
+            status: false,
+            message: 'Access denied. No token provided.',
+        });
     }
 
     try {
@@ -16,6 +19,18 @@ export const verifyToken=(req, res, next)=>{
         req.user = decodedToken; //Store decoded user data into request object
         next(); //Proceed to the next middleware or route
     } catch (error) {
-        res.status(403).json({ message: 'Invalid or expired token.' });
+        if (error.name === 'TokenExpiredError') {
+            return res.status(403).json({
+                status: false,
+                message: 'Token expired.',
+                error: error.message,
+            });
+        }
+        return res.status(403).json({
+            status: false,
+            message: 'Invalid token.',
+            error: error.message,
+        });
     }
+    
 }
