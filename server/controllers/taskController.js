@@ -11,8 +11,16 @@ export const createTask=async(req, res)=>{
             errors: errors.array()
         });
     }
+    
+    // Ensure req.user is available and contains the id
+    if (!req.user || !req.user.id) {
+        return res.status(400).json({
+            success: false,
+            message: 'User ID is missing or invalid.',
+        });
+    }
     try {
-        const task = await Task.create({...req.body, user_id: req.user.id});
+        const task = await Task.create({...req.body, userId: req.user.id});
         
         //return success created task
         return res.status(201).json({

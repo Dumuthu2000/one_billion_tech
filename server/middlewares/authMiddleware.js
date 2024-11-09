@@ -3,8 +3,8 @@ dotenv.config();
 import jwt from 'jsonwebtoken';
 
 export const verifyToken=(req, res, next)=>{
-    //Spliting token from request header
-    const token = req.headers['Authorization']?.split(' ')[1];
+    //Access JWT token from cookie
+    const token = req.cookies.token;
 
     //Check the token
     if(!token){
