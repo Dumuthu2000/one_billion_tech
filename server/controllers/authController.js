@@ -1,8 +1,8 @@
 import User from "../models/User.js";
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
 import { hashingData, verifyHashingData } from "../utils/bcryptUtils.js";
+import { generateJwtToken } from "../utils/jwtTokenUtils.js";
 
 //User register
 export const registerUser=async(req, res)=>{
@@ -22,7 +22,6 @@ export const registerUser=async(req, res)=>{
         }
 
         //Accessing saltRounds from .env
-        // const hashedPassword = await bcrypt.hash(password, parseInt(process.env.HASHING_PASSWORD_SALTROUNDS));
         const hashedPassword = await hashingData(password);
 
         //Adding user data to the users table
@@ -30,7 +29,8 @@ export const registerUser=async(req, res)=>{
 
         //Create jwt token
         const payload = {id: user.userId};
-        const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: '1hr'});
+        const token = generateJwtToken(payload);
+        // const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: '1hr'});
 
          //Setting up JWT token in cookie
          res.cookie('token', token, {
@@ -67,7 +67,6 @@ export const loginUser=async(req, res)=>{
         }
 
         //Check password as user credentials
-        // const isMatch = await bcrypt.compare(password, user.password);
         const isMatch = await verifyHashingData(password, user.password);
         if(!isMatch){
             return res.status(400).json({error: "Invalid credentials"});
@@ -75,7 +74,8 @@ export const loginUser=async(req, res)=>{
 
         //Create jwt token
         const payload = {id: user.userId};
-        const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: '1hr'});
+        const token = generateJwtToken(payload);
+        // const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: '1hr'});
 
         //Setting up JWT token in cookie
         res.cookie('token', token, {
