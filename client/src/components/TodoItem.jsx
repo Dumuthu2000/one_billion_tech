@@ -11,7 +11,7 @@ const TodoItem = ({
   isCompleted = false
 }) => {
   return (
-    <div className="max-w-[50rem] bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 p-4 mb-4">
+    <div className="max-w-[60rem] bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 p-4 mb-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         {/* Title and Description Section */}
         <div className="flex-1">
