@@ -52,7 +52,7 @@ export const registerUser=async(req, res, next)=>{
 };
 
 //User Login
-export const loginUser=async(req, res)=>{
+export const loginUser=async(req, res, next)=>{
     //Check is any validation error are there
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -65,7 +65,7 @@ export const loginUser=async(req, res)=>{
         //Check email as user credentials
         const user = await User.findOne({where: {email:email}});
         if(!user){
-            return res.status(400).json({error: "Invalid credentials"});
+            return res.status(400).json({error: "Invalid email credentials"});
         }
 
         //Check password as user credentials
@@ -93,12 +93,7 @@ export const loginUser=async(req, res)=>{
         });
 
     } catch (error) {
-        console.log(error.message)
-        return res.status(500).json({
-            status: false,
-            message: "Internal server error",
-            error: error.message
-        });
+        next(error)
     }
 }
 
@@ -159,7 +154,7 @@ export const resetPassword=async(req, res, next)=>{
         const hashedPassword = await hashingData(newPassword);
 
         user.password = hashedPassword;
-        user.resetPassword = null;
+        user.resetToken = null;
         user.resetTokenExpirey = null;
 
         await user.save();
@@ -168,6 +163,43 @@ export const resetPassword=async(req, res, next)=>{
             status: 'success',
             message: 'Password reset successfully', 
         });
+    } catch (error) {
+        next(error);
+    }
+}
+
+//Change password functionality
+export const changePassword=async(req, res, next)=>{
+    const{currentPassword, newPassword} = req.body;
+    const userId = req.user.id;
+
+    if(!currentPassword || !newPassword){
+        return next(new CustomError('Current password and new password are required', 400));
+    }
+
+    try {
+        const user = await User.findOne({where: {userId}});
+
+        if(!user){
+            throw new CustomError("User is not found", 404);
+        }
+
+        const isMatch = await verifyHashingData(currentPassword, user.password);
+        if(!isMatch){
+            throw new CustomError('Current password is invalid', 403);
+        }
+
+        const hashedPassword = await hashingData(newPassword);
+        const[updatedUserCount] = await user.update({password: hashedPassword});
+
+        if(updatedUserCount === 0){
+            return next(new CustomError('New password is not updated, try again!!', 400));
+        }
+
+        return res.status(200).json({
+            status: 'success',
+            message: 'Password change successfully',
+        })
     } catch (error) {
         next(error);
     }

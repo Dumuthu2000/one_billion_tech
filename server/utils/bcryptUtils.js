@@ -25,9 +25,7 @@ export const verifyHashingData=async(value, hashedValue)=>{
         return new Error("Value is not there");
     }
     try {
-        const verifiedValue = await bcrypt.compare(value, hashedValue);
-
-        return { verifiedValue };
+        return await bcrypt.compare(value, hashedValue);
     } catch (error) {
         return new Error('Error while hashing verifying: ' + error.message);
     }
