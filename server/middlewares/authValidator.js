@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 
 //Validation when register
-export const validateUser = [
+export const validateRegisterUser = [
     body('username')
         .notEmpty().withMessage("Username is required"),
 
@@ -14,13 +14,13 @@ export const validateUser = [
         .isLength({min:5, max:10}).withMessage('Password must be at least 5 characters long')
 ];
 
-// //Validation when login
-// export const validateLoginUser = [
-//     body('email')
-//         .isEmail()
-//         .withMessage('Please enter a valid email address'),
+//Validation when login
+export const validateLoginUser = [
+    body('email')
+        .isEmail()
+        .withMessage('Please enter a valid email address'),
 
-//     body('password')
-//         .notEmpty()
-//         .withMessage('Password is required')
-// ];
+    body('password')
+        .notEmpty()
+        .withMessage('Password is required')
+];

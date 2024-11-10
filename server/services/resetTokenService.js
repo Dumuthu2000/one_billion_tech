@@ -3,7 +3,7 @@ import { hashingData, verifyHashingData } from '../utils/bcryptUtils.js';
 
 export const generateResetToken=async()=>{
     const resetToken = crypto.randomBytes(30).toString('hex'); //Generate new reset token
-    const { hashedToken } = await hashingData(resetToken); //Making hash generated token from hashingUtils
+    const hashedToken = await hashingData(resetToken); //Making hash generated token from hashingUtils
 
     return { resetToken, hashedToken };
 }

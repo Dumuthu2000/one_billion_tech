@@ -7,7 +7,7 @@ export const sendPasswordResetEmail=async(email, resetLink)=>{
         from: process.env.EMAIL_USER,
         to: email,
         subject: "Password reset request",
-        message: `You requested a password reset. Click this link to reset your password: ${resetLink}`
+        text: `You requested a password reset. Click this link to reset your password: ${resetLink}`
     }
 
     //Sending options to the transporter

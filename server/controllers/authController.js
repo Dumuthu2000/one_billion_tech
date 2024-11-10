@@ -7,7 +7,7 @@ import { generateResetToken, verifyResetToken } from "../services/resetTokenServ
 import { sendPasswordResetEmail } from "../services/emailService.js";
 
 //User register
-export const registerUser=async(req, res)=>{
+export const registerUser=async(req, res, next)=>{
     //Check is any validation error are there
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -47,7 +47,7 @@ export const registerUser=async(req, res)=>{
         });
 
     } catch (error) {
-        return res.status(500).json({error: "Server error"});
+        next(error);
     }
 };
 

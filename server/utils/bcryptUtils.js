@@ -12,8 +12,7 @@ export const hashingData=async(value)=>{
     }
     try {
         //hashing passing value
-        const hashedValue = await bcrypt.hash(value, saltRounds);
-        return { hashedValue };   
+        return await bcrypt.hash(value, saltRounds);   
     } catch (error) {
         return new Error('Error while hashing: ' + error.message);
     }
