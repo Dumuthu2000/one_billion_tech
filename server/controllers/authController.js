@@ -1,5 +1,4 @@
 import User from "../models/User.js";
-import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
 import { hashingData, verifyHashingData } from "../utils/bcryptUtils.js";
 import { generateJwtToken } from "../utils/jwtTokenUtils.js";

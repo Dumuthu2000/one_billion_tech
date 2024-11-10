@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import sequelize from './config/dbConfig.js';
 import authRoutes from './routers/authRoutes.js';
 import taskRoutes from './routers/taskRoutes.js';
+import { errorHanlder } from './middlewares/errorHandler.js';
 
 dotenv.config();
 const app = express();
@@ -13,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+app.use(errorHanlder());
 
 //Routes
 app.use('/api/auth', authRoutes);
