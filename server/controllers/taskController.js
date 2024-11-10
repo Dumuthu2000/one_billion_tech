@@ -2,7 +2,7 @@ import Task from "../models/Task.js";
 import { validationResult } from 'express-validator';
 
 //Create new task functionality
-export const createTask=async(req, res)=>{
+export const createTask=async(req, res, next)=>{
     //Check validations
     const errors = validationResult(req);
 
@@ -31,11 +31,7 @@ export const createTask=async(req, res)=>{
             data: task
         });
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: 'Internal server error',
-            error: error.message,
-        }); 
+        next(error);
     }
 }
 
@@ -61,11 +57,7 @@ export const fetchTasks=async(req, res)=>{
             data: tasks, 
         });
     } catch (error) {
-        res.status(500).json({
-            status: false,
-            message: "Internal server error",
-            error: error.message,
-        })
+       next(error);
     }
 }
 
@@ -120,11 +112,7 @@ export const updateTask=async(req, res)=>{
             message: "Task updated successfully.",
         });
     } catch (error) {
-        return res.status(500).json({
-            status: false,
-            message: "Internal server error",
-            error: error.message,
-        });
+        next(error);
     }
 }
 
@@ -152,10 +140,6 @@ export const deleteTask=async(req, res)=>{
         message: "Task deleted successfully",
        });
     } catch (error) {
-        return res.status(500).json({
-            status: false,
-            message: "Internal server error",
-            error: error.message,
-        }); 
+        next(error); 
     }
 }
