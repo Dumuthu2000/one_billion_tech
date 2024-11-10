@@ -136,3 +136,39 @@ export const requestPasswordReset=async(req, res, next)=>{
         next(error);
     }
 }
+
+//Reset password
+export const resetPassword=async(req, res, next)=>{
+    const{token, email, newPassword} = req.body;
+
+    try {
+        const user = await User.findOne({where: {email}});
+
+        if(!user || !user.resetToken){
+            throw new CustomError('Invalid or expired token', 400);
+        }
+
+        //Check reset token is valid
+        const isValidResetToken = await verifyResetToken(token, user.resetToken);
+
+        if(!isValidResetToken || Date.now() > user.resetTokenExpirey){
+            throw new CustomError('Invalid or expired reset token', 400);
+        }
+
+        //Hashing new password
+        const hashedPassword = await hashingData(newPassword);
+
+        user.password = hashedPassword;
+        user.resetPassword = null;
+        user.resetTokenExpirey = null;
+
+        await user.save();
+
+        return res.status(200).json({
+            status: 'success',
+            message: 'Password reset successfully', 
+        });
+    } catch (error) {
+        next(error);
+    }
+}
