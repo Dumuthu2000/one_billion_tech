@@ -184,17 +184,15 @@ export const changePassword=async(req, res, next)=>{
             throw new CustomError("User is not found", 404);
         }
 
+        //Check if the current password is match or not
         const isMatch = await verifyHashingData(currentPassword, user.password);
         if(!isMatch){
             throw new CustomError('Current password is invalid', 403);
         }
 
+        //Hashing new password
         const hashedPassword = await hashingData(newPassword);
-        const[updatedUserCount] = await user.update({password: hashedPassword});
-
-        if(updatedUserCount === 0){
-            return next(new CustomError('New password is not updated, try again!!', 400));
-        }
+        await user.update({password: hashedPassword});
 
         return res.status(200).json({
             status: 'success',
