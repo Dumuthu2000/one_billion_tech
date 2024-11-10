@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import sequelize from './config/dbConfig.js';
 import authRoutes from './routers/authRoutes.js';
 import taskRoutes from './routers/taskRoutes.js';
+import userRoutes from './routers/userRoutes.js'
 import { errorHandler } from './middlewares/errorHandler.js';
 
 dotenv.config();
@@ -18,7 +19,7 @@ app.use(errorHandler);
 
 //Routes
 app.use('/api/auth', authRoutes);
-// app.use('/api/user',);
+app.use('/api/user', userRoutes);
 app.use('/api/task',taskRoutes);
 
 //Sync sequelize models with the database

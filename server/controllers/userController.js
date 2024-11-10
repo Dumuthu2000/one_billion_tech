@@ -2,6 +2,25 @@ import User from "../models/User.js";
 import { hashingData, verifyHashingData } from "../utils/bcryptUtils.js";
 import CustomError from '../utils/CustomError.js';
 
+//Fetch logged-in user details
+export const fetchUserData=async(req, res, next)=>{
+    const userId = req.user.id;
+
+    try {
+        const user = await User.findOne({where: {userId}});
+        if(!user){
+            throw new CustomError('User is not found', 404);
+        }
+
+        return res.status(200).json({
+            status: 'success',
+            data: user,
+        })
+    } catch (error) {
+        next(error);
+    }
+}
+
 //Change password functionality
 export const changePassword=async(req, res, next)=>{
     const{currentPassword, newPassword} = req.body;
