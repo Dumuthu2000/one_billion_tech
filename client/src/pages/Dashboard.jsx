@@ -1,9 +1,20 @@
 import React from 'react'
+import TodoList from '../components/TodoList'
+import TodoItem from '../components/TodoItem'
 
 const Dashboard = () => {
   return (
     <div>
-      asdadd
+      <TodoItem/>
+      <TodoItem/>
+      <TodoItem/>
+      <TodoItem/>
+      <TodoItem/>
+      <TodoItem/>
+      <TodoItem/>
+      <TodoItem/>
+      <TodoItem/>
+
     </div>
   )
 }
