@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { hashingData, verifyHashingData } from '../utils/bcryptUtils';
+import { hashingData, verifyHashingData } from '../utils/bcryptUtils.js';
 
 export const generateResetToken=async()=>{
     const resetToken = crypto.randomBytes(30).toString('hex'); //Generate new reset token

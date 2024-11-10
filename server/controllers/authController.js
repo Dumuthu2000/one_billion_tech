@@ -2,6 +2,9 @@ import User from "../models/User.js";
 import { validationResult } from 'express-validator';
 import { hashingData, verifyHashingData } from "../utils/bcryptUtils.js";
 import { generateJwtToken } from "../utils/jwtTokenUtils.js";
+import CustomError from '../utils/CustomError.js';
+import { generateResetToken, verifyResetToken } from "../services/resetTokenService.js";
+import { sendPasswordResetEmail } from "../services/emailService.js";
 
 //User register
 export const registerUser=async(req, res)=>{
@@ -100,3 +103,36 @@ export const loginUser=async(req, res)=>{
 }
 
 //Reset (forgot password) functionality
+export const requestPasswordReset=async(req, res, next)=>{
+    const {email} = req.body;
+    if(!email){
+        throw new CustomError('Email not found', 404);
+    }
+    try {
+        const user = await User.findOne({where: {email}});
+        //Check user is there
+        if(!user){
+            throw new CustomError('User is not found', 404);
+        }
+
+        //Create reset token and hashed token
+        const {resetToken, hashedToken} = await generateResetToken();
+
+        user.resetToken = hashedToken;
+        user.resetTokenExpirey = Date.now() + 10*60*60*1000 // 10 minutes expire
+
+        //Save reset token and expire time in use table
+        await user.save();
+
+        const resetLink = `${process.env.CLIENT_URL}/user/reset-token?token=${resetToken}&email=${email}`;
+        await sendPasswordResetEmail(user.email, resetLink);
+
+        return res.status(200).json({
+            status: 'success',
+            message: 'Password reset email sent successfully',
+        })
+
+    } catch (error) {
+        next(error);
+    }
+}

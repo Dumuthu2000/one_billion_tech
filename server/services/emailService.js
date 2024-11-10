@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import { transporter } from "../config/nodemailerConfig";
+import { transporter } from "../config/nodemailerConfig.js";
 
-export const sendEmailOptions=async(email, resetLink)=>{
+export const sendPasswordResetEmail=async(email, resetLink)=>{
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
