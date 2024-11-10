@@ -1,7 +1,13 @@
 import React from 'react'
+import Navbar from './components/Navbar'
 
-export default function App(){
-  return(
-    <h1>dsda</h1>
+const App = () => {
+  return (
+    <div className='text-red-700'>
+      <Navbar/>
+      asasas
+    </div>
   )
 }
+
+export default App
