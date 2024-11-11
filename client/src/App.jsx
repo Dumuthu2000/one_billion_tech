@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ChangePassword from './pages/ChangePassword';
 
 const App = () => {
   return (
@@ -28,6 +29,12 @@ const App = () => {
             <ProtectedRoute>
               <Navbar/>
               <Profile/>
+            </ProtectedRoute>
+          }/>
+          <Route path='/change-password' element={
+            <ProtectedRoute>
+              <Navbar/>
+              <ChangePassword/>
             </ProtectedRoute>
           }/>
         </Routes>

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   User, 
   Mail, 
   Calendar,
   Lock,
   Edit2,
-  Save
+  Save,
 } from 'lucide-react';
 import useProfile from '../hooks/useProfile';
 
@@ -71,10 +72,8 @@ const Profile = () => {
             {/* Profile Image Section */}
             <div className="flex flex-col items-center space-y-4">
               <div className="relative">
-                <img
-                  src={userInfo.profileImage}
-                  alt="Profile"
-                  className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
+                <User
+                  className="w-32 h-32 rounded-full bg-gray-300 object-cover border-4 border-white shadow-lg"
                 />
                 {isEditing && (
                   <button 
@@ -84,10 +83,10 @@ const Profile = () => {
                   </button>
                 )}
               </div>
-              <button className="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors">
+              <Link to={`/change-password`} className="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors">
                 Change Password
                 <Lock size={16} className="ml-2" />
-              </button>
+              </Link>
             </div>
 
             {/* User Details Section */}
