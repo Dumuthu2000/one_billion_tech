@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 
 const useProfile = () => {
-    const{ user } = useAuth();
     const[loading, setLoading] = useState(false);
     const[error, setError] = useState(false);
     const[userData, setUserData] = useState(null);
