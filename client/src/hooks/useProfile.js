@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 
@@ -8,11 +9,14 @@ const useProfile = () => {
     const[userData, setUserData] = useState(null);
 
     const fetchUser=async()=>{
+        console.log(document.cookie);
         setLoading(true);
         setError(false);
 
         try {
-            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/users`,{userId: user.id});
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/users`,{
+                withCredentials: true //To access automatically httpyOnly cookies
+            });
             const{ data } = response;
 
             //Save users data into user state

@@ -12,7 +12,10 @@ const useSignup = () => {
         setError(false);
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/register`, formData);
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/register`, 
+                formData, {
+                    withCredentials: true, //To access automatically httpyOnly cookies
+                });
             const { data } = response;
             //Store user data globally
             signup(data);
@@ -23,7 +26,7 @@ const useSignup = () => {
             setLoading(false);
         }
     }
-    
+
     return { handleSignup, loading, error };
 }
 

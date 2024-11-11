@@ -12,7 +12,10 @@ const useLogin = () => {
         setError(null);
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`, formData);
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`, 
+                formData, {
+                withCredentials: true, //To access automatically httpyOnly cookies
+            });
 
             //Destructuring response data
             const{ data } = response;
