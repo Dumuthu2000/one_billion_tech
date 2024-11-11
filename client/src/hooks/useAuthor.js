@@ -57,7 +57,7 @@ const useAuthor = () => {
         setError(false);
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/logout`, {
+             await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/logout`, {
                     withCredentials: true, //To access automatically httpyOnly cookies
                 });
             //MAke logout user gloabaly
