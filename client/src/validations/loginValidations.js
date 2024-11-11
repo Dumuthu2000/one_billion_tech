@@ -11,7 +11,10 @@ export const validateLogin=(formData)=>{
     // Password validation
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 5) {
+    } else if (formData.password.length < 2) {
       newErrors.password = 'Password must be at least 5 characters';
     }
+
+    // Always return an object
+    return newErrors;
 }
