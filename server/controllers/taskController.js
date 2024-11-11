@@ -143,3 +143,32 @@ export const deleteTask=async(req, res)=>{
         next(error); 
     }
 }
+
+//Get selected task for edit
+export const editTask=async(req, res, next)=>{
+    const{ id } = req.params; // Get the task ID from URL params
+    const userId = req.user.id; // Access user ID from the JWT token
+
+    try {
+       const task = await Task.findOne({where: {
+        taskId: id, 
+        userId
+       }});
+
+       // Check if the task was found and deleted
+       if(!task){
+        return res.status(404).json({
+            success: false,
+            message: "Task is not found.",
+            task,
+        });
+       }
+
+       return res.status(200).json({
+        status: 'success',
+        message: "Task is fetched successfully",
+       });
+    } catch (error) {
+        next(error); 
+    }
+}
