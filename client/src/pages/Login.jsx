@@ -29,7 +29,7 @@ const Login = () => {
     //If no any validation error then proceed with login
     if(Object.keys(validationErrors).length === 0){
       try {
-        await handleLogin(formData.email, formData.password);
+        await handleLogin(formData);
         navigate('/dashboard');   
       } catch (error) {
         console.error(error)

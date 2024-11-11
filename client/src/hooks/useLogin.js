@@ -7,12 +7,12 @@ const useLogin = () => {
     const[error, setError] = useState(null);
     const { login } = useAuth();
 
-    const handleLogin=async(email, password)=>{
+    const handleLogin=async(formData)=>{
         setLoading(true);
         setError(null);
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`, {email, password});
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`, formData);
 
             //Destructuring response data
             const{ data } = response;
