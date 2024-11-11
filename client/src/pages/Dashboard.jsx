@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoItem from '../components/TodoItem';
-import { Plus, Filter } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import TodoForm from '../components/TodoForm';
 import Modal from '../components/Model';
-
+import { Plus, Filter } from 'lucide-react';
+import useTodo from '../hooks/useTodo';
 
 const Dashboard = () => {
+  const{ loading, error, fetchTodoList, todoList} = useTodo();
   const[isModalOpen, setIsModelOpen] = useState(false);
 
+  //Fetching created todo by logged-user
+  useEffect(()=>{
+    fetchTodoList();
+  }, [fetchTodoList]);
+
+  //Model openning
   const handleOpenModel=()=>{
     setIsModelOpen(true);
   }
@@ -47,23 +53,12 @@ const Dashboard = () => {
         </div>
         {/* Todo Items  created By tody*/}
         <div className="mt-6 space-y-4">
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-        </div>
-        {/*Horizontal line*/}
-        <div className="flex items-center my-6">
-          <hr className="flex-grow border-t border-gray-300" />
-          <span className="mx-4 text-gray-500 font-semibold capitalize text-xl">Recent task</span>
-          <hr className="flex-grow border-t border-gray-300" />
-        </div>
-        {/* Todo Items  created By tody*/}
         <div className="mt-6 space-y-4">
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
+        {todoList.map((task) => (
+          <TodoItem key={task.taskId} todo={task} />
+        ))}
+      </div>
+
         </div>
         {isModalOpen && (
           <Modal onClose={handleCloseModel}>
