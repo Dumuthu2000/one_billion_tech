@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const useLogin = () => {
     const[loading, setLoading] = useState(false);
     const[error, setError] = useState(null);
-    const[user, setUser] = useState(null);
+    const { login } = useAuth();
 
-    const login=async(email, password)=>{
+    const handleLogin=async(email, password)=>{
         setLoading(true);
         setError(null);
 
@@ -16,7 +17,7 @@ const useLogin = () => {
             //Destructuring response data
             const{ data } = response;
             //Save user data in user state
-            setUser(data);
+            login(data);
 
             setLoading(false);
         } catch (error) {
@@ -25,6 +26,6 @@ const useLogin = () => {
         }
     }
 
-    return { login, loading, error, user };
+    return { handleLogin, loading, error };
 }
 export default useLogin;
