@@ -1,7 +1,9 @@
+// Login.jsx
 import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
-  // State for form inputs and errors
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -9,7 +11,6 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -25,7 +26,6 @@ const Login = () => {
     }
   };
 
-  // Validate form
   const validateForm = () => {
     const newErrors = {};
     
@@ -47,7 +47,6 @@ const Login = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -64,8 +63,8 @@ const Login = () => {
       // Here you would typically make your actual API call
       console.log('Login submitted:', formData);
       
-      // Clear form after successful submission
-      setFormData({ email: '', password: '' });
+      // Navigate after successful login
+      navigate('/dashboard'); // Adjust this path as needed
       
     } catch (error) {
       setErrors({ submit: 'Login failed. Please try again.' });
@@ -81,6 +80,15 @@ const Login = () => {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in to your account
           </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            Or{' '}
+            <Link
+              to="/signup"
+              className="font-medium text-blue-600 hover:text-blue-500"
+            >
+              create a new account
+            </Link>
+          </p>
         </div>
         
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -148,9 +156,12 @@ const Login = () => {
             </div>
 
             <div className="text-sm">
-              <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
+              <Link
+                to="/forgot-password"
+                className="font-medium text-blue-600 hover:text-blue-500"
+              >
                 Forgot your password?
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -164,6 +175,26 @@ const Login = () => {
             </button>
           </div>
         </form>
+
+        <div className="mt-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">New to our platform?</span>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <Link
+              to="/signup"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            >
+              Create new account
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
