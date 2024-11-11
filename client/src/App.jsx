@@ -4,6 +4,8 @@ import Navbar from './components/Navbar'
 import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import TodoForm from './components/TodoForm'
+import Login from './pages/Login';
+import Signup from './pages/Signup'
 
 const App = () => {
   return (
@@ -11,8 +13,11 @@ const App = () => {
       <BrowserRouter>
         <Navbar/>
         <Routes>
-          <Route path='/' element={<Dashboard/>}/>
+          <Route path='/' element={<Login/>}/>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/signup' element={<Signup/>}/>
           <Route path='/profile' element={<Profile/>}/>
+          <Route path='/dashboard' element={<Dashboard/>}/>
           <Route path='/create-todo' element={<TodoForm/>}/>
         </Routes>
       </BrowserRouter>
