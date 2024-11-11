@@ -4,9 +4,9 @@ import axios from "axios";
 const useTodo = () => {
   const[loading, setLoading] = useState(false);
   const[error, setError] = useState(false);
-  const[todo, setTodo] = useState([]);
+  const[todoList, setTodoList] = useState([]);
 
-  const fetchTasks=async()=>{
+  const fetchTodoList=async()=>{
     setLoading(true);
     setError(false);
 
@@ -17,14 +17,15 @@ const useTodo = () => {
 
         const{ data } = response;
         //Save users data into user state
-        setTodo(data);
+        setTodoList(data.tasks);
+        console.log(data.tasks);
     } catch (error) {
         setError(error.response?.data?.message || 'Something went wrong');
         setLoading(false);
     }
   };
 
-  return{ loading, error, fetchTasks, todo }
+  return{ loading, error, fetchTodoList, todoList }
 }
 
 export default useTodo;
