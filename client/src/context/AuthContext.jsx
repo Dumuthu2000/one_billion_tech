@@ -21,6 +21,4 @@ export const AuthProvider=({children})=>{
 }
 
 //Create custom hook to accessing autcontext
-export const useAuth=()=>{
-    useContext(AuthContext);
-}
+export const useAuth=()=> useContext(AuthContext);
