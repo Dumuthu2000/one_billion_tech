@@ -11,12 +11,17 @@ export const AuthProvider=({children})=>{
         setUser(userData); //Store user data globaly
     }
 
+    const signup=(userData)=>{
+        setIsLoggedIn(true);
+        setUser(userData);
+    }
+
     const logout=()=>{
         setIsLoggedIn(false);
     }
 
     return(
-        <AuthContext.Provider value={{isLoggedIn, login, logout, user}}>
+        <AuthContext.Provider value={{isLoggedIn, login, signup, logout, user}}>
             {children}
         </AuthContext.Provider>
     )
