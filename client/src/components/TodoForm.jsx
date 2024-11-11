@@ -1,7 +1,5 @@
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 import { X, CalendarDays, Clock } from 'lucide-react';
-
-const ModelContext = createContext();
 
 const TodoForm = ({ onClose }) => {
   const [formData, setFormData] = useState({
