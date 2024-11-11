@@ -1,6 +1,7 @@
 import express from 'express';
-import {loginUser, registerUser, requestPasswordReset, resetPassword } from '../controllers/authController.js';
+import {loginUser, logout, registerUser, requestPasswordReset, resetPassword } from '../controllers/authController.js';
 import { validateRegisterUser, validateLoginUser } from '../middlewares/authValidator.js';
+import { verifyToken } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
@@ -12,5 +13,7 @@ router.post('/login',validateLoginUser,loginUser);
 router.post('/request-reset-password',requestPasswordReset);
 //Reset password from email route
 router.post('/reset-password',resetPassword);
+//Reset password from email route
+router.post('/logout', verifyToken, logout);
 
 export default router;

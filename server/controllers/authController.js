@@ -168,3 +168,21 @@ export const resetPassword=async(req, res, next)=>{
         next(error);
     }
 }
+
+//User logout functionality
+export const logout=async(req, res, next)=>{
+    try {
+        // Clear the token cookie by setting it with an immediate expiration
+        res.clearCookie('token', { 
+            httpOnly: true,  
+            secure: true,
+        });
+
+        return res.status(200).json({
+            success: 'success',
+            message: "Logged out successfully.",
+        });
+    } catch (error) {
+        next(error);
+    }
+}
