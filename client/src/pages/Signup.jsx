@@ -1,11 +1,11 @@
 // Signup.jsx
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import useSignup from '../hooks/useSignup';
+import useAuthor from '../hooks/useAuthor';
 import { validateSignup } from '../validations/signupValidations';
 
 const Signup = () => {
-    const{handleSignup, loading, error} = useSignup();
+    const{handleSignup, loading, error} = useAuthor();
     const[formData, setFormData] = useState({
         username: '',
         email: '',

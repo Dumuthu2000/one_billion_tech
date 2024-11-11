@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import useLogin from '../hooks/useLogin';
+import useAuthor from '../hooks/useAuthor';
 import { Link, useNavigate } from 'react-router-dom';
 import { validateLogin } from '../validations/loginValidations';
 
 const Login = () => {
-  const { handleLogin, loading, error } = useLogin();
+  const { handleLogin, loading, error } = useAuthor();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
