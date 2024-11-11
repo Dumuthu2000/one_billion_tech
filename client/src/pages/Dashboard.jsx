@@ -8,6 +8,7 @@ import useTodo from '../hooks/useTodo';
 const Dashboard = () => {
   const { loading, error, fetchTodoList, addTodo, todoList } = useTodo();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentTodo, setCurrentTodo] = useState(null);
 
   // Fetching created todo by logged-user
   useEffect(() => {
@@ -21,6 +22,11 @@ const Dashboard = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleEdit = (todo) => {
+    setCurrentTodo(todo); // Set the current task to be edited
+    setIsModalOpen(true); // Open the modal for editing
   };
 
   const handleSubmitForm = async (formData) => {
@@ -64,7 +70,7 @@ const Dashboard = () => {
           ) : error ? (
             <div className="text-center text-red-500">Error: {error}</div>
           ) : (
-            todoList.map((task) => <TodoItem key={task.taskId} todo={task} />)
+            todoList.map((task) => <TodoItem key={task.taskId} todo={task} onEdit={handleEdit}/>)
           )}
         </div>
 
@@ -74,6 +80,7 @@ const Dashboard = () => {
               onClose={handleCloseModal}
               handleSubmit={handleSubmitForm}
               handleLoading={loading}
+              selectedTodo={currentTodo} // Pass the current todo data for editing
             />
           </Modal>
         )}

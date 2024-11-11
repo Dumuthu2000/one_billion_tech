@@ -3,8 +3,9 @@ import axios from "axios";
 
 const useTodo = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null); // Use null instead of false for error state
+  const [error, setError] = useState(null); 
   const [todoList, setTodoList] = useState([]);
+  const [selectedTodo, setSelectedTodo] = useState(null);
 
   //Fetching TO-DO tasks that logged-in user
   const fetchTodoList = async () => {
@@ -52,7 +53,45 @@ const useTodo = () => {
     }
   }
 
-  return { loading, error, fetchTodoList, addTodo, todoList };
+  //Fetch selected task
+  const fetchSelectedTask=async(taskId)=>{
+    setLoading(true);
+    setError(null); 
+
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`, {
+          withCredentials: true,
+        }
+      );
+      const { data } = response;
+      setSelectedTodo(data);
+      setLoading(false);
+    } catch (error) {
+      setError(error.response?.data?.message || 'Something went wrong');
+      setLoading(false);
+    }
+  }
+
+  //Fetch selected task
+  const deletTask=async(taskId)=>{
+    setLoading(true);
+    setError(null); 
+
+    try {
+      const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`, {
+          withCredentials: true,
+        }
+      );
+      const { data } = response;
+      setSelectedTodo(data);
+      setLoading(false);
+    } catch (error) {
+      setError(error.response?.data?.message || 'Something went wrong');
+      setLoading(false);
+    }
+  }
+
+  return { loading, error, fetchTodoList, addTodo, fetchSelectedTask, deletTask, todoList, selectedTodo };
 };
 
 export default useTodo;

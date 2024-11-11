@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { CalendarDays, Clock, Trash2, Edit2 } from 'lucide-react';
 
-const TodoItem = ({ todo }) => {
-  const { title, description, dueDate, dueTime } = todo;
+const TodoItem = ({ todo, onEdit }) => {
+  const { taskId, title, description, dueDate, dueTime } = todo;
   const formattedDate = dueDate.toString().split('T')[0];
   const [isCompleted, setIsCompleted] = useState(false);
 
@@ -11,12 +11,8 @@ const TodoItem = ({ todo }) => {
                       String(today.getMonth() + 1).padStart(2, '0') + '-' + 
                       String(today.getDate()).padStart(2, '0');
 
-  const onEdit = () => {
-    // Handle edit
-  };
 
-  const onDelete = () => {
-    // Handle delete
+  const onDelete = async() => {
   };
 
   return (
@@ -49,11 +45,14 @@ const TodoItem = ({ todo }) => {
               <span>{dueTime}</span>
             </div>
           </div>
-
           <div className="flex gap-2">
-            <button onClick={onEdit} className="p-2 text-blue-600 hover:bg-blue-100 rounded-full transition-colors duration-200">
+            {/* edit button */}
+            <button onClick={()=>{
+              onEdit(todo);
+            }} className="p-2 text-blue-600 hover:bg-blue-100 rounded-full transition-colors duration-200">
               <Edit2 className="h-5 w-5" />
             </button>
+            {/* Delete buttton */}
             <button onClick={onDelete} className="p-2 text-red-600 hover:bg-red-100 rounded-full transition-colors duration-200">
               <Trash2 className="h-5 w-5" />
             </button>
