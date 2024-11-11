@@ -24,7 +24,7 @@ const Navbar = () => {
           <div className="flex justify-between items-center px-4 py-3">
             {/* Logo */}
             <div className="flex items-center space-x-2">
-              <Link to="/" className="text-2xl font-bold hover:text-gray-200 transition-colors">
+              <Link to="/dashboard" className="text-2xl font-bold hover:text-gray-200 transition-colors">
                 TODO
               </Link>
             </div>
