@@ -5,8 +5,9 @@ import { useAuth } from '../context/AuthContext';
 const useAuthor = () => {
     const[loading, setLoading] = useState(false);
     const[error, setError] = useState(null);
-    const { login, signup } = useAuth();
+    const { login, signup, logout } = useAuth();
 
+    //User login API
     const handleLogin=async(formData)=>{
         setLoading(true);
         setError(null);
@@ -29,6 +30,7 @@ const useAuthor = () => {
         }
     }
 
+    //User signup API
     const handleSignup=async(formData)=>{
         setLoading(true);
         setError(false);
@@ -49,6 +51,25 @@ const useAuthor = () => {
         }
     }
 
-    return { handleLogin, handleSignup, loading, error };
+    //User logout API
+    const handleLogout=async()=>{
+        setLoading(true);
+        setError(false);
+
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/logout`, {
+                    withCredentials: true, //To access automatically httpyOnly cookies
+                });
+            //MAke logout user gloabaly
+            logout();
+
+            setLoading(false);
+        } catch (error) {
+            setError(error.response?.data?.message || 'Something went wrong');
+            setLoading(false);
+        }
+    }
+
+    return { handleLogin, handleSignup, handleLogout, loading, error };
 }
 export default useAuthor;
