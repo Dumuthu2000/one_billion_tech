@@ -54,7 +54,7 @@ export const fetchTasks=async(req, res)=>{
         return res.status(200).json({
             status: true,
             message: 'Tasks fetched successfully.',
-            data: tasks, 
+            tasks, 
         });
     } catch (error) {
        next(error);
