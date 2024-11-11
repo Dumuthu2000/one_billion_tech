@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TodoItem from '../components/TodoItem';
 import { Plus, Filter } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import TodoForm from '../components/TodoForm';
+import Modal from '../components/Model';
+
 
 const Dashboard = () => {
+  const[isModalOpen, setIsModelOpen] = useState(false);
+
+  const handleOpenModel=()=>{
+    setIsModelOpen(true);
+  }
+
+  const handleCloseModel=()=>{
+    setIsModelOpen(false);
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-8">
+    <div className="min-h-screen bg-gray-50 px-4 py-8 relative">
       <div className="mt-10 mx-auto max-w-[60rem] bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -16,7 +30,8 @@ const Dashboard = () => {
               <Filter className="h-4 w-4" />
               Filter
             </button>
-            <button 
+            <button
+              onClick={handleOpenModel} 
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
             >
               <Plus className="h-4 w-4" />
@@ -24,30 +39,37 @@ const Dashboard = () => {
             </button>
           </div>
         </div>
-
-        {/* Search and Filter Section */}
-        <div className="mt-6">
-          <input
-            type="text"
-            placeholder="Search tasks..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
+        {/*Horizontal line*/}
+        <div className="flex items-center my-6">
+          <hr className="flex-grow border-t border-gray-300" />
+          <span className="mx-4 text-gray-500 font-semibold capitalize text-xl">Today tasks</span>
+          <hr className="flex-grow border-t border-gray-300" />
         </div>
-
-        {/* Todo Items Section */}
+        {/* Todo Items  created By tody*/}
         <div className="mt-6 space-y-4">
           <TodoItem />
           <TodoItem />
           <TodoItem />
           <TodoItem />
         </div>
-
-        {/* Empty State */}
-        {false && (
-          <div className="mt-6 text-center py-12">
-            <p className="text-gray-500">No tasks found. Create your first task!</p>
-          </div>
-        )}
+        {/*Horizontal line*/}
+        <div className="flex items-center my-6">
+          <hr className="flex-grow border-t border-gray-300" />
+          <span className="mx-4 text-gray-500 font-semibold capitalize text-xl">Recent task</span>
+          <hr className="flex-grow border-t border-gray-300" />
+        </div>
+        {/* Todo Items  created By tody*/}
+        <div className="mt-6 space-y-4">
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+        </div>
+        {isModalOpen && (
+          <Modal onClose={handleCloseModel}>
+            <TodoForm onClose={handleCloseModel}/>
+          </Modal>
+        )}      
       </div>
     </div>
   );
