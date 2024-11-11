@@ -1,77 +1,20 @@
 // Login.jsx
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import useLogin from '../hooks/useLogin';
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  //Getting login objects from login hook
+  const { login, loading, error, user } = useLogin();
+
+  const[formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
   });
-  const [errors, setErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    
-    // Email validation
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
-    }
-    
-    // Password validation
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-
-    setIsLoading(true);
-    
-    try {
-      // Simulating API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Here you would typically make your actual API call
-      console.log('Login submitted:', formData);
-      
-      // Navigate after successful login
-      navigate('/dashboard'); // Adjust this path as needed
-      
-    } catch (error) {
-      setErrors({ submit: 'Login failed. Please try again.' });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const navigate = useNavigate();
+  
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -92,9 +35,10 @@ const Login = () => {
         </div>
         
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {errors.submit && (
+          {/*Check submission error */}
+          {error&&(
             <div className="rounded-md bg-red-50 p-4">
-              <p className="text-sm text-red-700">{errors.submit}</p>
+              <p className="text-sm text-red-700">{error}</p>
             </div>
           )}
           
