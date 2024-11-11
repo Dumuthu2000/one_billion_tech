@@ -160,13 +160,13 @@ export const editTask=async(req, res, next)=>{
         return res.status(404).json({
             success: false,
             message: "Task is not found.",
-            task,
         });
        }
 
        return res.status(200).json({
         status: 'success',
         message: "Task is fetched successfully",
+        task,
        });
     } catch (error) {
         next(error); 
