@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {  User, LogOut } from 'lucide-react';
+import useAuthor from '../hooks/useAuthor';
 
 const Navbar = () => {
+  const{ handleLogout } = useAuthor();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Add logout logic here, for example:
-    // logout();
-    navigate('/login');
+  const handleUserLogout=async(e)=>{
+    e.preventDefault();
+    console.log("loadahdbasjdbabhjbdasbdjasd")
+    try {
+      await handleLogout();
+      navigate('/login');
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   const closeDropdown = () => {
@@ -55,10 +62,7 @@ const Navbar = () => {
                     </Link>
                     <hr className="my-1" />
                     <button
-                      onClick={() => {
-                        closeDropdown();
-                        handleLogout();
-                      }}
+                      onClick={handleUserLogout}
                       className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
                     >
                       <LogOut className="h-4 w-4 mr-2" />

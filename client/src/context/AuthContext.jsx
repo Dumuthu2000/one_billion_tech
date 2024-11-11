@@ -18,6 +18,7 @@ export const AuthProvider=({children})=>{
 
     const logout=()=>{
         setIsLoggedIn(false);
+        setUser(null);
     }
 
     return(

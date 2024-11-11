@@ -57,7 +57,7 @@ const useAuthor = () => {
         setError(false);
 
         try {
-             await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/logout`, {
+             await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/logout`,{} , {
                     withCredentials: true, //To access automatically httpyOnly cookies
                 });
             //MAke logout user gloabaly
@@ -65,6 +65,7 @@ const useAuthor = () => {
 
             setLoading(false);
         } catch (error) {
+            logout();
             setError(error.response?.data?.message || 'Something went wrong');
             setLoading(false);
         }
