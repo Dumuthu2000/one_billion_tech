@@ -1,13 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, CalendarDays, Clock } from 'lucide-react';
+import { validateAddTask } from '../validations/taskValidations';
 
-const TodoForm = ({ onClose }) => {
+const TodoForm = ({ onClose, handleSubmit, handleLoading }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    date: new Date().toISOString().split('T')[0], // Today's date as default
-    time: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }), // Current time as default
+    dueDate: new Date().toISOString().split('T')[0], // Today's date as default
+    dueTime: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }), // Current time as default
   });
+
+  const[errors, setErrors] = useState({});
+
+  //Handle input change
+  const handleChange=(e)=>{
+    setFormData({...formData, [e.target.name]: e.target.value});
+  };
+
+  // Handle form submission
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
+
+    //Validate form data
+    const validationErrors = validateAddTask(formData);
+    setErrors(validationErrors);
+
+    // If no validation errors, submit the form data
+    if(Object.keys(validationErrors).length === 0){
+      try {
+        await handleSubmit(formData);  // Call the parent component's handleSubmit
+        onClose();  // Close modal after submission
+      } catch (error) {
+        console.error('Error adding task:', error);
+      } 
+    }
+  };
+
+  // Clear errors when form data changes
+  useEffect(() => {
+    setErrors({});
+  }, [formData]);
   return (  
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-7 z-50">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
@@ -32,11 +64,17 @@ const TodoForm = ({ onClose }) => {
               type="text"
               id="title"
               name="title"
+              onChange={handleChange}
               value={formData.title}
               placeholder="Enter task title"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              required
+              className={`w-full px-3 py-2 ${
+                errors.title ? 'border-red-300' : 'border-gray-300'
+              } border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+      
             />
+            {errors.title && (
+                <p className="mt-1 text-sm text-red-600">{errors.title}</p>
+            )}
           </div>
 
           {/* Description Input */}
@@ -47,11 +85,17 @@ const TodoForm = ({ onClose }) => {
             <textarea
               id="description"
               name="description"
+              onChange={handleChange}
               value={formData.description}
               placeholder="Enter task description"
               rows="3"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              className={`w-full px-3 py-2 ${
+                errors.title ? 'border-red-300' : 'border-gray-300'
+              } border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none`}
             />
+            {errors.description && (
+                <p className="mt-1 text-sm text-red-600">{errors.title}</p>
+            )}
           </div>
 
           {/* Date and Time Inputs */}
@@ -66,9 +110,10 @@ const TodoForm = ({ onClose }) => {
               </label>
               <input
                 type="date"
-                id="date"
-                name="date"
-                value={formData.date}
+                id="dueDate"
+                name="dueDate"
+                onChange={handleChange}
+                value={formData.dueDate}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
@@ -84,9 +129,10 @@ const TodoForm = ({ onClose }) => {
               </label>
               <input
                 type="time"
-                id="time"
-                name="time"
-                value={formData.time}
+                id="dueTime"
+                name="dueTime"
+                onChange={handleChange}
+                value={formData.dueTime}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
@@ -104,9 +150,9 @@ const TodoForm = ({ onClose }) => {
             </button>
             <button
               type="submit"
+              onClick={handleSubmitForm}
               className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Create Task
+            >{handleLoading ?'Creating..':'Create Task'}
             </button>
           </div>
         </form>
