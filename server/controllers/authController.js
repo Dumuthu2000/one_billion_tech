@@ -186,3 +186,34 @@ export const logout=async(req, res, next)=>{
         next(error);
     }
 }
+
+//Verifying user authentication
+export const verifyAuth = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        
+        // Fetch the user data (excluding password)
+        const user = await User.findOne({
+            where: { userId },
+            attributes: { exclude: ['password', 'resetToken', 'resetTokenExpirey'] }
+        });
+
+        if (!user) {
+            return res.status(401).json({
+                status: false,
+                message: 'User not found'
+            });
+        }
+
+        return res.status(200).json({
+            status: true,
+            user: {
+                id: user.userId,
+                email: user.email,
+                username: user.username
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+};
