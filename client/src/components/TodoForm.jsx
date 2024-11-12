@@ -62,23 +62,23 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
   }, [formData]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-7 z-50">
+    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center p-7 z-50">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
         {/* Header */}
-        <div className="flex justify-between items-center p-2">
+        <div className="flex justify-between items-center p-4 bg-gray-900 text-white rounded-t-lg">
           <h1 className="text-2xl font-bold">
             {selectedTodo ? 'Edit Task' : 'Create New Task'}
           </h1>
           <button
             onClick={onClose}
-            className="text-grey-500 hover:text-gray-700"
+            className="text-gray-300 hover:text-white"
           >
             <X className="h-7 w-7" />
           </button>
         </div>
 
         {/* Form */}
-        <form className="p-4">
+        <form className="p-6">
           {/* Title Input */}
           <div className="mb-4">
             <label
@@ -94,7 +94,7 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
               onChange={handleChange}
               value={formData.title}
               placeholder="Enter task title"
-              className={`w-full px-3 py-2 ${errors.title ? 'border-red-300' : 'border-gray-300'} border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+              className={`w-full px-4 py-3 ${errors.title ? 'border-red-300' : 'border-gray-300'} border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
             />
             {errors.title && (
               <p className="mt-1 text-sm text-red-600">{errors.title}</p>
@@ -116,7 +116,7 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
               value={formData.description}
               placeholder="Enter task description"
               rows="3"
-              className={`w-full px-3 py-2 ${errors.title ? 'border-red-300' : 'border-gray-300'} border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none`}
+              className={`w-full px-4 py-3 ${errors.title ? 'border-red-300' : 'border-gray-300'} border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none`}
             />
             {errors.description && (
               <p className="mt-1 text-sm text-red-600">{errors.description}</p>
@@ -142,7 +142,7 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
                 name="dueDate"
                 onChange={handleChange}
                 value={formData.dueDate}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
             </div>
@@ -164,7 +164,7 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
                 name="dueTime"
                 onChange={handleChange}
                 value={formData.dueTime}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
             </div>
@@ -175,7 +175,7 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              className="px-4 py-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
             >
               Cancel
             </button>
