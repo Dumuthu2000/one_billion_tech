@@ -49,9 +49,7 @@ const Signup = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div
         className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow"
-        style={{
-          background: "linear-gradient(135deg, #c4c7ff 0%, #b6b8e7 100%)",
-        }}
+        style={{ background: 'linear-gradient(135deg, #c4ffd1 0%, #d5d6ec 100%)' }}
       >
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

@@ -3,95 +3,96 @@ import axios from "axios";
 
 const useTodo = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
   const [todoList, setTodoList] = useState([]);
   const [selectedTodo, setSelectedTodo] = useState(null);
 
-  //Fetching TO-DO tasks that logged-in user
-  const fetchTodoList = async () => {
-    setLoading(true);
-    setError(null); // Reset error state before fetching
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/task/tasks`, {
-        withCredentials: true,
-      });
-
-      const { data } = response;
-      setTodoList(data.tasks); // Store the fetched tasks in todoList
-
-      setLoading(false);
-    } catch (error) {
-      setError(error.response?.data?.message || 'Something went wrong');
-      setLoading(false);
-    } 
+  // Helper function to handle API errors
+  const handleApiError = (error) => {
+    setError(error.response?.data?.message || 'Something went wrong');
+    setLoading(false);
   };
 
-  //Create a new TO-DO task
-  const addTodo=async(formData)=>{
+  // Fetch all to-do tasks for the logged-in user
+  const fetchTodoList = async () => {
     setLoading(true);
-    setError(null); 
+    setError(null);
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/task/tasks`,
-        formData, {
-          withCredentials: true,
-        }
-      );
-
-      const { data } = response;
-
-      //Add new task to the existing list of tasks
-      setTodoList((prevTodoList)=>{
-        [...prevTodoList, data.data]
+      const response = await axios.get(`${baseUrl}/task/tasks`, {
+        withCredentials: true,
       });
-
-      setLoading(false);
+      setTodoList(response.data.tasks);
     } catch (error) {
-      setError(error.response?.data?.message || 'Something went wrong');
+      handleApiError(error);
+    } finally {
       setLoading(false);
     }
-  }
+  };
 
-  //Fetch selected task
-  const fetchSelectedTask=async(taskId)=>{
+  // Create a new to-do task
+  const addTodo = async (formData) => {
     setLoading(true);
-    setError(null); 
+    setError(null);
 
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`, {
-          withCredentials: true,
-        }
-      );
-      const { data } = response;
-      setSelectedTodo(data);
-      setLoading(false);
+      const response = await axios.post(`${baseUrl}/task/tasks`, formData, {
+        withCredentials: true,
+      });
+      setTodoList((prevTodoList) => [...prevTodoList, response.data.data]);
     } catch (error) {
-      setError(error.response?.data?.message || 'Something went wrong');
+      handleApiError(error);
+    } finally {
       setLoading(false);
     }
-  }
+  };
 
-  //Fetch selected task
-  const deletTask=async(taskId)=>{
+  // Fetch a specific to-do task by ID
+  const fetchSelectedTask = async (taskId) => {
     setLoading(true);
-    setError(null); 
+    setError(null);
 
     try {
-      const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`, {
-          withCredentials: true,
-        }
-      );
-      const { data } = response;
-      setSelectedTodo(data);
-      setLoading(false);
+      const response = await axios.get(`${baseUrl}/task/tasks/${taskId}`, {
+        withCredentials: true,
+      });
+      setSelectedTodo(response.data);
     } catch (error) {
-      setError(error.response?.data?.message || 'Something went wrong');
+      handleApiError(error);
+    } finally {
       setLoading(false);
     }
-  }
+  };
 
-  return { loading, error, fetchTodoList, addTodo, fetchSelectedTask, deletTask, todoList, selectedTodo };
+  // Delete a to-do task by ID
+  const deleteTask = async (taskId) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await axios.delete(`${baseUrl}/task/tasks/${taskId}`, {
+        withCredentials: true,
+      });
+      setTodoList((prevTodoList) => prevTodoList.filter((task) => task.id !== taskId));
+    } catch (error) {
+      handleApiError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    loading,
+    error,
+    todoList,
+    selectedTodo,
+    fetchTodoList,
+    addTodo,
+    fetchSelectedTask,
+    deleteTask,
+  };
 };
 
 export default useTodo;

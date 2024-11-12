@@ -8,10 +8,10 @@ import {
   Edit2,
   Save,
 } from 'lucide-react';
-import useProfile from '../hooks/useProfile';
+import useUser from '../hooks/useUser';
 
 const Profile = () => {
-  const { fetchUser, loading, error, userData } = useProfile();
+  const { fetchUser, loading, error, userData } = useUser();
   const [isEditing, setIsEditing] = useState(false);
   const [userInfo, setUserInfo] = useState({
     username: "John Doe",

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CalendarDays, Clock, Trash2, Edit2 } from 'lucide-react';
+import { CalendarDays, Clock, Trash2, Edit2, CheckCircle } from 'lucide-react';
 
 const TodoItem = ({ todo, onEdit }) => {
   const { taskId, title, description, dueDate, dueTime } = todo;
@@ -11,49 +11,71 @@ const TodoItem = ({ todo, onEdit }) => {
                       String(today.getMonth() + 1).padStart(2, '0') + '-' + 
                       String(today.getDate()).padStart(2, '0');
 
-
   const onDelete = async() => {
   };
 
+  const getPriorityStyles = () => {
+    if (formattedDate === currentDate) {
+      return 'bg-gradient-to-r from-rose-50 to-pink-50 border-l-4 border-l-rose-500 hover:shadow-rose-100';
+    }
+    return 'bg-white hover:bg-gradient-to-r hover:from-indigo-50/50 hover:to-purple-50/50 hover:shadow-indigo-100/50';
+  };
+
   return (
-    <div className={`rounded-lg shadow-sm p-4 transition-all duration-200 ${formattedDate === currentDate ? 'bg-red-50 border-2 border-red-500' : 'bg-white border border-gray-200 hover:shadow-md'}`}>
+    <div className={`rounded-xl shadow-sm p-6 transition-all duration-300 border border-gray-100 ${getPriorityStyles()} hover:shadow-lg`}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex-1">
+        <div className="flex-1 space-y-2">
           <div className="flex items-center gap-3">
-            <h3 className={`font-medium text-lg text-gray-900 ${isCompleted ? 'line-through text-gray-500' : ''}`}>
+            <button 
+              onClick={() => setIsCompleted(!isCompleted)}
+              className={`p-1 rounded-full transition-colors duration-200 ${
+                isCompleted 
+                  ? 'text-green-600 bg-green-50 hover:bg-green-100' 
+                  : 'text-gray-400 hover:text-indigo-600 hover:bg-indigo-50'
+              }`}
+            >
+              <CheckCircle className="h-5 w-5" />
+            </button>
+            <h3 className={`font-semibold text-lg ${
+              isCompleted 
+                ? 'line-through text-gray-400' 
+                : 'text-gray-800 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text'
+            }`}>
               {title}
             </h3>
             {formattedDate === currentDate && (
-              <span className="px-2 py-1 text-xs font-medium bg-red-500 text-white rounded-full">
-                Agent
+              <span className="px-3 py-1 text-xs font-medium bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-full shadow-sm">
+                Due Today
               </span>
             )}
           </div>
-          <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+          <p className={`text-sm ${isCompleted ? 'text-gray-400' : 'text-gray-600'} line-clamp-2`}>
             {description}
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4">
-          <div className="flex items-center gap-3 text-sm text-gray-500">
-            <div className="flex items-center gap-1">
-              <CalendarDays className="h-4 w-4" />
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div className="flex items-center gap-4 text-sm text-gray-500">
+            <div className="flex items-center gap-1.5 bg-gray-50 px-3 py-1.5 rounded-full">
+              <CalendarDays className="h-4 w-4 text-gray-400" />
               <span>{formattedDate}</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Clock className="h-4 w-4" />
+            <div className="flex items-center gap-1.5 bg-gray-50 px-3 py-1.5 rounded-full">
+              <Clock className="h-4 w-4 text-gray-400" />
               <span>{dueTime}</span>
             </div>
           </div>
           <div className="flex gap-2">
-            {/* edit button */}
-            <button onClick={()=>{
-              onEdit(todo);
-            }} className="p-2 text-blue-600 hover:bg-blue-100 rounded-full transition-colors duration-200">
+            <button 
+              onClick={() => onEdit(todo)} 
+              className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-full transition-all duration-200 hover:shadow-sm"
+            >
               <Edit2 className="h-5 w-5" />
             </button>
-            {/* Delete buttton */}
-            <button onClick={onDelete} className="p-2 text-red-600 hover:bg-red-100 rounded-full transition-colors duration-200">
+            <button 
+              onClick={onDelete} 
+              className="p-2 text-rose-600 hover:bg-rose-50 rounded-full transition-all duration-200 hover:shadow-sm"
+            >
               <Trash2 className="h-5 w-5" />
             </button>
           </div>
