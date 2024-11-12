@@ -82,14 +82,6 @@ const Navbar = () => {
                       <User className="h-4 w-4 mr-2 text-purple-400" />
                       Profile
                     </Link>
-                    <Link
-                      to="/settings"
-                      className="flex items-center px-3 py-2 text-sm text-gray-200 rounded-lg hover:bg-white/10 transition-colors"
-                      onClick={closeDropdown}
-                    >
-                      <Settings className="h-4 w-4 mr-2 text-purple-400" />
-                      Settings
-                    </Link>
                     <div className="h-px bg-gray-700 my-2" />
                     <button
                       onClick={handleUserLogout}
