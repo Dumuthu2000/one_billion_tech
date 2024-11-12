@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, LogOut, Settings, ChevronDown } from 'lucide-react';
+import { User, LogOut, ChevronDown } from 'lucide-react';
 import useAuthenticate from '../hooks/useAuthenticate';
 import { useAuth } from '../context/AuthContext';
 
@@ -10,9 +10,11 @@ const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navigate = useNavigate();
 
-  const username =
-    user.data.email.toString().split('@')[0].charAt(0).toUpperCase() +
-    user.data.email.toString().split('@')[0].slice(1);
+  // Updated to handle the new user object structure
+  const username = user?.email
+    ? user.email.split('@')[0].charAt(0).toUpperCase() +
+      user.email.split('@')[0].slice(1)
+    : 'User';
 
   const handleUserLogout = async (e) => {
     e.preventDefault();
@@ -40,7 +42,7 @@ const Navbar = () => {
                 className="text-xl font-semibold text-white hover:text-purple-200 transition-colors"
               >
                 <span className="bg-gradient-to-r from-purple-200 via-purple-100 to-white bg-clip-text text-transparent">
-                  {username ? `Welcome, ${username}` : 'User'}
+                  {`Welcome, ${username}`}
                 </span>
               </Link>
             </div>
@@ -59,7 +61,9 @@ const Navbar = () => {
                   Account
                 </span>
                 <ChevronDown
-                  className={`h-4 w-4 text-gray-200 transition-transform duration-300 ${isProfileOpen ? 'rotate-180' : ''}`}
+                  className={`h-4 w-4 text-gray-200 transition-transform duration-300 ${
+                    isProfileOpen ? 'rotate-180' : ''
+                  }`}
                 />
               </button>
 
@@ -70,7 +74,7 @@ const Navbar = () => {
                     <div className="px-3 py-2 text-sm text-gray-400">
                       Signed in as <br />
                       <span className="font-medium text-purple-200">
-                        {user.data.email}
+                        {user?.email}
                       </span>
                     </div>
                     <div className="h-px bg-gray-700 my-2" />

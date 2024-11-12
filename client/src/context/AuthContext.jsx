@@ -1,32 +1,54 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext();
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Function to check authentication status
+  const checkAuthStatus = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/auth/verify`, {
+        withCredentials: true
+      });
+      
+      if (response.data.user) {
+        setUser(response.data.user);
+      }
+    } catch (error) {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Check auth status when app loads
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
 
   const login = (userData) => {
-    setIsLoggedIn(true);
-    setUser(userData); //Store user data globaly
+    setUser(userData.data);
   };
 
   const signup = (userData) => {
-    setIsLoggedIn(true);
-    setUser(userData);
+    setUser(userData.data);
   };
 
   const logout = () => {
-    setIsLoggedIn(false);
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, signup, logout, user }}>
-      {children}
+    <AuthContext.Provider value={{ user, login, signup, logout, loading }}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 };
 
-//Create custom hook to accessing autcontext
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
