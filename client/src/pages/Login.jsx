@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import useAuthenticate from '../hooks/useAuthenticate';
 import { Link, useNavigate } from 'react-router-dom';
 import { validateLogin } from '../validations/loginValidations';
@@ -14,12 +14,12 @@ const Login = () => {
   const navigate = useNavigate();
 
   //Handle inpu changed
-  const handleChange=(e)=>{
-    setFormData({...formData, [e.target.name]: e.target.value});
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   //Handle form subbmission
-  const handleSubmit=async(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     //Validate form data
@@ -27,15 +27,15 @@ const Login = () => {
     setErrors(validationErrors);
 
     //If no any validation error then proceed with login
-    if(Object.keys(validationErrors).length === 0){
+    if (Object.keys(validationErrors).length === 0) {
       try {
         await handleLogin(formData);
-        navigate('/dashboard');   
+        navigate('/dashboard');
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     }
-  }
+  };
 
   // Clear errors when form data changes
   useEffect(() => {
@@ -43,8 +43,12 @@ const Login = () => {
   }, [formData]);
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8 rounded-lg shadow" style={{ background: 'linear-gradient(135deg, #c4d7ff 0%, #d5d6ec 100%)' }}>
-
+      <div
+        className="max-w-md w-full space-y-8 p-8 rounded-lg shadow"
+        style={{
+          background: 'linear-gradient(135deg, #c4d7ff 0%, #d5d6ec 100%)',
+        }}
+      >
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in to your account
@@ -70,7 +74,10 @@ const Login = () => {
 
           <div className="rounded-md shadow-sm space-y-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Email address
               </label>
               <input
@@ -91,7 +98,10 @@ const Login = () => {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Password
               </label>
               <input
@@ -120,7 +130,10 @@ const Login = () => {
                 type="checkbox"
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-900"
+              >
                 Remember me
               </label>
             </div>
@@ -147,7 +160,7 @@ const Login = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

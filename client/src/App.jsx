@@ -17,34 +17,43 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           {/*Public routes*/}
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/signup' element={<Signup/>}/>
-          <Route path='/forgot-password' element={<ForgotPassword/>}/>
-          <Route path='/user/reset-token' element={<ResetPassword/>}/>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/user/reset-token" element={<ResetPassword />} />
 
           {/*Protected routes*/}
-          <Route path='/dashboard' element={
-            <ProtectedRoute>
-              <Navbar/>
-              <Dashboard/>
-            </ProtectedRoute>
-          }/>
-          <Route path='/profile' element={
-            <ProtectedRoute>
-              <Navbar/>
-              <Profile/>
-            </ProtectedRoute>
-          }/>
-          <Route path='/change-password' element={
-            <ProtectedRoute>
-              <Navbar/>
-              <ChangePassword/>
-            </ProtectedRoute>
-          }/>
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/change-password"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <ChangePassword />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
-  )
-}
+  );
+};
 
-export default App
+export default App;

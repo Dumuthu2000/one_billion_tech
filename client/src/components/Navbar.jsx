@@ -10,16 +10,17 @@ const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navigate = useNavigate();
 
-  const username = user.data.email.toString().split('@')[0].charAt(0).toUpperCase() + 
+  const username =
+    user.data.email.toString().split('@')[0].charAt(0).toUpperCase() +
     user.data.email.toString().split('@')[0].slice(1);
 
-  const handleUserLogout = async(e) => {
+  const handleUserLogout = async (e) => {
     e.preventDefault();
     try {
       await handleLogout();
       navigate('/login');
     } catch (error) {
-      console.error("Logout failed:", error);
+      console.error('Logout failed:', error);
     }
   };
 
@@ -34,8 +35,8 @@ const Navbar = () => {
           <div className="flex justify-between items-center px-6 py-4">
             {/* Logo and Welcome Message */}
             <div className="flex items-center space-x-2">
-              <Link 
-                to="/dashboard" 
+              <Link
+                to="/dashboard"
                 className="text-xl font-semibold text-white hover:text-purple-200 transition-colors"
               >
                 <span className="bg-gradient-to-r from-purple-200 via-purple-100 to-white bg-clip-text text-transparent">
@@ -54,8 +55,12 @@ const Navbar = () => {
                 <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 flex items-center justify-center text-white shadow-md">
                   <User className="h-4 w-4" />
                 </div>
-                <span className="text-gray-100 font-medium hidden sm:block">Account</span>
-                <ChevronDown className={`h-4 w-4 text-gray-200 transition-transform duration-300 ${isProfileOpen ? 'rotate-180' : ''}`} />
+                <span className="text-gray-100 font-medium hidden sm:block">
+                  Account
+                </span>
+                <ChevronDown
+                  className={`h-4 w-4 text-gray-200 transition-transform duration-300 ${isProfileOpen ? 'rotate-180' : ''}`}
+                />
               </button>
 
               {/* Enhanced Dropdown Menu */}
@@ -64,7 +69,9 @@ const Navbar = () => {
                   <div className="p-2 space-y-1">
                     <div className="px-3 py-2 text-sm text-gray-400">
                       Signed in as <br />
-                      <span className="font-medium text-purple-200">{user.data.email}</span>
+                      <span className="font-medium text-purple-200">
+                        {user.data.email}
+                      </span>
                     </div>
                     <div className="h-px bg-gray-700 my-2" />
                     <Link

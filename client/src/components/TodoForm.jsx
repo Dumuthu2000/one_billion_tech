@@ -7,7 +7,11 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
     title: '',
     description: '',
     dueDate: new Date().toISOString().split('T')[0],
-    dueTime: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
+    dueTime: new Date().toLocaleTimeString('en-US', {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+    }),
   });
   const [errors, setErrors] = useState({});
 
@@ -19,7 +23,11 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
         title: selectedTodo.title || '',
         description: selectedTodo.description || '',
         dueDate: dueDateTime.toISOString().split('T')[0],
-        dueTime: dueDateTime.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
+        dueTime: dueDateTime.toLocaleTimeString('en-US', {
+          hour12: false,
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
       });
     }
   }, [selectedTodo]);
@@ -52,13 +60,15 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
   useEffect(() => {
     setErrors({});
   }, [formData]);
-  
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-7 z-50">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
         {/* Header */}
         <div className="flex justify-between items-center p-2">
-          <h1 className="text-2xl font-bold">{selectedTodo ? 'Edit Task' : 'Create New Task'}</h1>
+          <h1 className="text-2xl font-bold">
+            {selectedTodo ? 'Edit Task' : 'Create New Task'}
+          </h1>
           <button
             onClick={onClose}
             className="text-grey-500 hover:text-gray-700"
@@ -71,7 +81,10 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
         <form className="p-4">
           {/* Title Input */}
           <div className="mb-4">
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="title"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Title
             </label>
             <input
@@ -90,7 +103,10 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
 
           {/* Description Input */}
           <div className="mb-4">
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Description
             </label>
             <textarea
@@ -111,7 +127,10 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
           <div className="grid grid-cols-2 gap-4 mb-6">
             {/* Date Picker */}
             <div>
-              <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="date"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 <div className="flex items-center gap-2">
                   <CalendarDays className="h-4 w-4" />
                   Date
@@ -130,7 +149,10 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
 
             {/* Time Picker */}
             <div>
-              <label htmlFor="time" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="time"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4" />
                   Time
@@ -162,7 +184,11 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
               onClick={handleSubmitForm}
               className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
             >
-              {handleLoading ? 'Creating..' : selectedTodo ? 'Update Task' : 'Create Task'}
+              {handleLoading
+                ? 'Creating..'
+                : selectedTodo
+                  ? 'Update Task'
+                  : 'Create Task'}
             </button>
           </div>
         </form>

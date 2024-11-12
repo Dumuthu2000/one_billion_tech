@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  User, 
-  Mail, 
-  Calendar,
-  Lock,
-  Edit2,
-  Save,
-} from 'lucide-react';
+import { User, Mail, Calendar, Lock, Edit2, Save } from 'lucide-react';
 import useUser from '../hooks/useUser';
 
 const Profile = () => {
   const { fetchUser, loading, error, userData } = useUser();
   const [isEditing, setIsEditing] = useState(false);
   const [userInfo, setUserInfo] = useState({
-    username: "John Doe",
-    email: "john.doe@example.com",
-    createdAt: "January 15, 2024",
-    profileImage: "/api/placeholder/150/150"
+    username: 'John Doe',
+    email: 'john.doe@example.com',
+    createdAt: 'January 15, 2024',
+    profileImage: '/api/placeholder/150/150',
   });
 
   // Fetch user data and set it to userInfo
@@ -42,7 +35,9 @@ const Profile = () => {
         <div className="p-6 border-b border-gray-200">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Profile Information</h1>
+              <h1 className="text-2xl font-bold text-gray-900">
+                Profile Information
+              </h1>
               <p className="text-sm text-gray-500 mt-1">
                 Manage your personal information and account settings
               </p>
@@ -72,18 +67,17 @@ const Profile = () => {
             {/* Profile Image Section */}
             <div className="flex flex-col items-center space-y-4">
               <div className="relative">
-                <User
-                  className="w-32 h-32 rounded-full bg-gray-300 object-cover border-4 border-white shadow-lg"
-                />
+                <User className="w-32 h-32 rounded-full bg-gray-300 object-cover border-4 border-white shadow-lg" />
                 {isEditing && (
-                  <button 
-                    className="absolute bottom-0 right-0 p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors shadow-md"
-                  >
+                  <button className="absolute bottom-0 right-0 p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors shadow-md">
                     <Edit2 size={16} />
                   </button>
                 )}
               </div>
-              <Link to={`/change-password`} className="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors">
+              <Link
+                to={`/change-password`}
+                className="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors"
+              >
                 Change Password
                 <Lock size={16} className="ml-2" />
               </Link>
@@ -101,7 +95,9 @@ const Profile = () => {
                   type="text"
                   value={userInfo.username}
                   disabled={!isEditing}
-                  onChange={(e) => setUserInfo({...userInfo, username: e.target.value})}
+                  onChange={(e) =>
+                    setUserInfo({ ...userInfo, username: e.target.value })
+                  }
                   className="w-full p-3 border border-gray-300 rounded-md bg-white disabled:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 />
               </div>
@@ -116,7 +112,9 @@ const Profile = () => {
                   type="email"
                   value={userInfo.email}
                   disabled={!isEditing}
-                  onChange={(e) => setUserInfo({...userInfo, email: e.target.value})}
+                  onChange={(e) =>
+                    setUserInfo({ ...userInfo, email: e.target.value })
+                  }
                   className="w-full p-3 border border-gray-300 rounded-md bg-white disabled:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 />
               </div>

@@ -1,9 +1,9 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState } from 'react';
+import axios from 'axios';
 
 const useTodo = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
   const [todoList, setTodoList] = useState([]);
   const [selectedTodo, setSelectedTodo] = useState(null);
 
@@ -13,9 +13,12 @@ const useTodo = () => {
     setError(null); // Reset error state before fetching
 
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/task/tasks`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/task/tasks`,
+        {
+          withCredentials: true,
+        }
+      );
 
       const { data } = response;
       setTodoList(data.tasks); // Store the fetched tasks in todoList
@@ -24,17 +27,19 @@ const useTodo = () => {
     } catch (error) {
       setError(error.response?.data?.message || 'Something went wrong');
       setLoading(false);
-    } 
+    }
   };
 
   //Create a new TO-DO task
-  const addTodo=async(formData)=>{
+  const addTodo = async (formData) => {
     setLoading(true);
-    setError(null); 
+    setError(null);
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/task/tasks`,
-        formData, {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/task/tasks`,
+        formData,
+        {
           withCredentials: true,
         }
       );
@@ -42,8 +47,8 @@ const useTodo = () => {
       const { data } = response;
 
       //Add new task to the existing list of tasks
-      setTodoList((prevTodoList)=>{
-        [...prevTodoList, data.data]
+      setTodoList((prevTodoList) => {
+        [...prevTodoList, data.data];
       });
 
       setLoading(false);
@@ -51,15 +56,17 @@ const useTodo = () => {
       setError(error.response?.data?.message || 'Something went wrong');
       setLoading(false);
     }
-  }
+  };
 
   //Fetch selected task
-  const fetchSelectedTask=async(taskId)=>{
+  const fetchSelectedTask = async (taskId) => {
     setLoading(true);
-    setError(null); 
+    setError(null);
 
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`, {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`,
+        {
           withCredentials: true,
         }
       );
@@ -70,16 +77,18 @@ const useTodo = () => {
       setError(error.response?.data?.message || 'Something went wrong');
       setLoading(false);
     }
-  }
+  };
 
   //Update a task
-  const updateTask=async(taskId, formData)=>{
+  const updateTask = async (taskId, formData) => {
     setLoading(true);
-    setError(null); 
+    setError(null);
 
     try {
-      const response = await axios.patch(`${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`,
-        formData, {
+      const response = await axios.patch(
+        `${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`,
+        formData,
+        {
           withCredentials: true,
         }
       );
@@ -91,15 +100,17 @@ const useTodo = () => {
       setError(error.response?.data?.message || 'Something went wrong');
       setLoading(false);
     }
-  }
+  };
 
   //Delete a  task
-  const deletTask=async(taskId)=>{
+  const deletTask = async (taskId) => {
     setLoading(true);
-    setError(null); 
+    setError(null);
 
     try {
-      const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`, {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`,
+        {
           withCredentials: true,
         }
       );
@@ -111,9 +122,19 @@ const useTodo = () => {
       setError(error.response?.data?.message || 'Something went wrong');
       setLoading(false);
     }
-  }
+  };
 
-  return { loading, error, fetchTodoList, addTodo, fetchSelectedTask, updateTask, deletTask, todoList, selectedTodo };
+  return {
+    loading,
+    error,
+    fetchTodoList,
+    addTodo,
+    fetchSelectedTask,
+    updateTask,
+    deletTask,
+    todoList,
+    selectedTodo,
+  };
 };
 
 export default useTodo;

@@ -4,30 +4,33 @@ import { Link } from 'react-router-dom';
 import useAuthenticate from '../hooks/useAuthenticate';
 
 const ForgotPassword = () => {
-    const{ requestResetPasswordAPI, loading, error } = useAuthenticate()
+  const { requestResetPasswordAPI, loading, error } = useAuthenticate();
 
   const [email, setEmail] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const handleSubmit=async(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccess(false);
     try {
-        await requestResetPasswordAPI(email);
-        setSuccess(true);
+      await requestResetPasswordAPI(email);
+      setSuccess(true);
     } catch (error) {
-        setSuccess(false);
-        console.log(error.message);
+      setSuccess(false);
+      console.log(error.message);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8" >
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full mx-auto">
         <div className="bg-white rounded-lg shadow-md p-8">
           {/* Back to Login Link */}
           <div className="mb-6">
-            <Link to={`/login`} className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            <Link
+              to={`/login`}
+              className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
+            >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Login
             </Link>
@@ -39,24 +42,25 @@ const ForgotPassword = () => {
               Forgot Password?
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Enter your email address and we'll send you instructions to reset your password.
+              Enter your email address and we'll send you instructions to reset
+              your password.
             </p>
           </div>
 
           {/* Status Messages */}
           {success && (
-            <div className={`mb-6 p-4 rounded-md bg-green-50 text-green-700 border border-green-200`}>
-              <p className="text-sm">
-                Email sent successfully
-              </p>
+            <div
+              className={`mb-6 p-4 rounded-md bg-green-50 text-green-700 border border-green-200`}
+            >
+              <p className="text-sm">Email sent successfully</p>
             </div>
           )}
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label 
-                htmlFor="email" 
+              <label
+                htmlFor="email"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
                 Email address

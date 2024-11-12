@@ -6,7 +6,15 @@ import useTodo from '../hooks/useTodo';
 import { Plus, ChevronUp, ChevronDown } from 'lucide-react';
 
 const Dashboard = () => {
-  const { loading, error, fetchTodoList, deletTask, todoList = [], addTodo, updateTask } = useTodo();
+  const {
+    loading,
+    error,
+    fetchTodoList,
+    deletTask,
+    todoList = [],
+    addTodo,
+    updateTask,
+  } = useTodo();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(null);
   const [sortDirection, setSortDirection] = useState('asc');
@@ -44,8 +52,12 @@ const Dashboard = () => {
 
   // Sort tasks by due date and time
   const sortedTasks = [...todoList].sort((a, b) => {
-    const dateA = new Date(`${a.dueDate.replace('T00:00:00.000Z', '')}T${a.dueTime}`);
-    const dateB = new Date(`${b.dueDate.replace('T00:00:00.000Z', '')}T${b.dueTime}`);
+    const dateA = new Date(
+      `${a.dueDate.replace('T00:00:00.000Z', '')}T${a.dueTime}`
+    );
+    const dateB = new Date(
+      `${b.dueDate.replace('T00:00:00.000Z', '')}T${b.dueTime}`
+    );
 
     if (sortDirection === 'asc') {
       return dateA - dateB;
@@ -67,7 +79,9 @@ const Dashboard = () => {
             <h1 className="font-bold text-3xl bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               To-Do List
             </h1>
-            <p className="text-gray-500 text-sm">Manage your tasks efficiently</p>
+            <p className="text-gray-500 text-sm">
+              Manage your tasks efficiently
+            </p>
           </div>
           <div className="flex items-center gap-3">
             <div className="relative">
