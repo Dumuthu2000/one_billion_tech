@@ -4,8 +4,7 @@ import { User, Mail, Calendar, Lock } from 'lucide-react';
 import useUser from '../hooks/useUser';
 
 const Profile = () => {
-  const { fetchUser, loading, error, userData } = useUser();
-  const [isEditing, setIsEditing] = useState(false);
+  const { fetchUser, userData } = useUser();
   const [userInfo, setUserInfo] = useState({
     username: 'John Doe',
     email: 'john.doe@example.com',
@@ -14,16 +13,21 @@ const Profile = () => {
   });
   const navigate = useNavigate();
 
-  // Fetch user data and set it to userInfo
+  // Fetch user data on component mount
   useEffect(() => {
     const fetchUserData = async () => {
       await fetchUser();
-      if (userData) {
-        setUserInfo(userData.data);
-      }
     };
     fetchUserData();
   }, []);
+
+  // Update userInfo when userData is available
+  useEffect(() => {
+    if (userData?.data) {
+      setUserInfo(userData.data);
+    }
+  }, [userData]);
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-6">
@@ -70,7 +74,9 @@ const Profile = () => {
                 <input
                   type="text"
                   value={userInfo.username}
-                  disabled
+                  onChange={(e) =>
+                    setUserInfo({ ...userInfo, username: e.target.value })
+                  }
                   className="w-full p-3 border border-gray-300 rounded-md bg-white disabled:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 />
               </div>
@@ -85,6 +91,9 @@ const Profile = () => {
                   type="email"
                   value={userInfo.email}
                   disabled
+                  onChange={(e) =>
+                    setUserInfo({ ...userInfo, email: e.target.value })
+                  }
                   className="w-full p-3 border border-gray-300 rounded-md bg-white disabled:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 />
               </div>

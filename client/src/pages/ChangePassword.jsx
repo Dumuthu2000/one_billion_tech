@@ -187,10 +187,6 @@ const ChangePassword = () => {
                 </li>
                 <li className="flex items-center">
                   <div className="w-1 h-1 bg-gray-500 rounded-full mr-2"></div>
-                  At least one number
-                </li>
-                <li className="flex items-center">
-                  <div className="w-1 h-1 bg-gray-500 rounded-full mr-2"></div>
                   At least one special character
                 </li>
               </ul>
