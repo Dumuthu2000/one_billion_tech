@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useAuthenticate from '../hooks/useAuthenticate';
 import { useNavigate, useSearchParams } from 'react-router-dom'; //For access URL query string parameters
+import { validateResetPassword } from '../validations/resetPasswordValidations';
 
 const ResetPassword = () => {
     const{ resetPasswordAPI, loading, error } = useAuthenticate();
@@ -9,6 +10,7 @@ const ResetPassword = () => {
         newPassword: '',
         confirmPassword: '',
     });
+    const[errors, setErrors] = useState({});
     const navigate = useNavigate();
 
     // Get token and email from URL query string parameters
@@ -21,11 +23,18 @@ const ResetPassword = () => {
 
     const handleSubmitForm=async(e)=>{
         e.preventDefault();
-        try {
-            await resetPasswordAPI({...formData, token, email});
-            navigate('/login');
-        } catch (error) {
-            console.error("Password reset error:", error);
+
+        //Validate form data
+        const validationErrors = validateResetPassword(formData);
+        setErrors(validationErrors);
+
+        if(Object.keys(validationErrors).length === 0){
+            try {
+                await resetPasswordAPI({...formData, token, email});
+                navigate('/login');
+            } catch (error) {
+                console.error("Password reset error:", error);
+            }
         }
     }
     return (
@@ -33,10 +42,8 @@ const ResetPassword = () => {
             <div className="max-w-md w-full mx-auto">
                 <div className="bg-white rounded-lg shadow-md p-8">
                     <h2 className="text-3xl font-bold text-gray-900 mb-6">Reset Password</h2>
-                    
-                    {/* {message && <p className="text-green-600">{message}</p>}
-                    {error && <p className="text-red-600">{error}</p>} */}
-                    
+
+                    {/* Reset pasword form */}
                     <form  className="space-y-6" onSubmit={handleSubmitForm}>
                         <div>
                             <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1">
@@ -48,9 +55,14 @@ const ResetPassword = () => {
                                 type="password"
                                 onChange={handleChnage}
                                 value={formData.newPassword}
-                                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-colors"
+                                className={`block w-full px-3 py-2 border ${
+                                    errors.newPassword ? 'border-red-300' : 'border-gray-300'
+                                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-colors`}
                                 placeholder="Enter new password"
                             />
+                            {errors.newPassword && (
+                                <p className="mt-1 text-sm text-red-600">{errors.newPassword}</p>
+                            )}
                         </div>
                         
                         <div>
@@ -63,9 +75,14 @@ const ResetPassword = () => {
                                 type="password"
                                 onChange={handleChnage}
                                 value={formData.confirmPassword}
-                                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-colors"
+                                className={`block w-full px-3 py-2 border ${
+                                    errors.confirmPassword ? 'border-red-300' : 'border-gray-300'
+                                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-colors`}
                                 placeholder="Confirm new password"
                             />
+                            {errors.confirmPassword && (
+                                <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
+                            )}
                         </div>
 
                         <button
