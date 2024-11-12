@@ -69,10 +69,7 @@ const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
           <h1 className="text-2xl font-bold">
             {selectedTodo ? 'Edit Task' : 'Create New Task'}
           </h1>
-          <button
-            onClick={onClose}
-            className="text-gray-300 hover:text-white"
-          >
+          <button onClick={onClose} className="text-gray-300 hover:text-white">
             <X className="h-7 w-7" />
           </button>
         </div>

@@ -121,7 +121,9 @@ const Dashboard = () => {
           {loading ? (
             <div className="text-center">Loading...</div>
           ) : error ? (
-            <div className="text-center text-xl font-bold text-red-500">{error}</div>
+            <div className="text-center text-xl font-bold text-red-500">
+              {error}
+            </div>
           ) : (
             sortedTasks.map((task) => (
               <TodoItem

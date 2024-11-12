@@ -28,7 +28,6 @@ const Profile = () => {
     }
   }, [userData]);
 
-
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-6">
       <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
@@ -36,9 +35,7 @@ const Profile = () => {
         <div className="p-6 bg-gray-900 text-white">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold">
-                Profile Information
-              </h1>
+              <h1 className="text-2xl font-bold">Profile Information</h1>
               <p className="text-sm text-gray-300 mt-1">
                 Manage your personal information and account settings
               </p>

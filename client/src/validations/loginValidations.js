@@ -16,7 +16,8 @@ export const validateLogin = (formData) => {
   } else if (!/[A-Z]/.test(formData.password)) {
     newErrors.password = 'Password must contain at least one uppercase letter';
   } else if (!/[@#$%]/.test(formData.password)) {
-    newErrors.password = 'Password must contain at least one special character (@, #, $, %)';
+    newErrors.password =
+      'Password must contain at least one special character (@, #, $, %)';
   }
 
   // Always return an object
