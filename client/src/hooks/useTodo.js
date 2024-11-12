@@ -7,6 +7,8 @@ const useTodo = () => {
   const [todoList, setTodoList] = useState([]);
   const [selectedTodo, setSelectedTodo] = useState(null);
 
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
   //Fetching TO-DO tasks that logged-in user
   const fetchTodoList = async () => {
     setLoading(true);
@@ -14,7 +16,7 @@ const useTodo = () => {
 
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/task/tasks`,
+        `${baseUrl}/task/tasks`,
         {
           withCredentials: true,
         }
@@ -37,7 +39,7 @@ const useTodo = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/task/tasks`,
+        `${baseUrl}/task/tasks`,
         formData,
         {
           withCredentials: true,
@@ -65,7 +67,7 @@ const useTodo = () => {
 
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`,
+        `${baseUrl}/task/tasks/${taskId}`,
         {
           withCredentials: true,
         }
@@ -86,7 +88,7 @@ const useTodo = () => {
 
     try {
       const response = await axios.patch(
-        `${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`,
+        `${baseUrl}/task/tasks/${taskId}`,
         formData,
         {
           withCredentials: true,
@@ -109,7 +111,7 @@ const useTodo = () => {
 
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_BASE_URL}/task/tasks/${taskId}`,
+        `${baseUrl}/task/tasks/${taskId}`,
         {
           withCredentials: true,
         }

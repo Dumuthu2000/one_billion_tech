@@ -2,6 +2,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 const useAuthenticate = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -14,7 +16,7 @@ const useAuthenticate = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/auth/login`,
+        `${baseUrl}/auth/login`,
         formData,
         {
           withCredentials: true, //To access automatically httpyOnly cookies
@@ -41,7 +43,7 @@ const useAuthenticate = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/auth/register`,
+        `${baseUrl}/auth/register`,
         formData,
         {
           withCredentials: true, //To access automatically httpyOnly cookies
@@ -65,7 +67,7 @@ const useAuthenticate = () => {
 
     try {
       await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/auth/logout`,
+        `${baseUrl}/auth/logout`,
         {},
         {
           withCredentials: true, //To access automatically httpyOnly cookies
@@ -89,7 +91,7 @@ const useAuthenticate = () => {
 
     try {
       await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/auth/request-reset-password`,
+        `${baseUrl}/auth/request-reset-password`,
         { email },
         {
           withCredentials: true, //To access automatically httpyOnly cookies
@@ -110,7 +112,7 @@ const useAuthenticate = () => {
 
     try {
       await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/auth/reset-password`,
+        `${baseUrl}/auth/reset-password`,
         formData,
         {
           withCredentials: true, //To access automatically httpyOnly cookies
