@@ -20,7 +20,7 @@ export const registerUser=async(req, res, next)=>{
         //Check any user already registered using same email
         let user = await User.findOne({where: {email:email}});
         if(user){
-            return res.status(400).json({error: "User already exists"});
+            throw new CustomError("User already exists", 400);
         }
 
         //Accessing saltRounds from .env
@@ -66,13 +66,14 @@ export const loginUser=async(req, res, next)=>{
         //Check email as user credentials
         const user = await User.findOne({where: {email:email}});
         if(!user){
-            return res.status(400).json({error: "Invalid email credentials"});
+            // return res.status(400).json({error: "Invalid email credentials"});
+            throw new CustomError("Invalid email credentials", 400);
         }
 
         //Check password as user credentials
         const isMatch = await verifyHashingData(password, user.password);
         if(!isMatch){
-            return res.status(400).json({error: "Invalid credentials"});
+            throw new CustomError("Invalid credentials", 400);
         }
 
         //Create jwt token
@@ -199,10 +200,7 @@ export const verifyAuth = async (req, res, next) => {
         });
 
         if (!user) {
-            return res.status(401).json({
-                status: false,
-                message: 'User not found'
-            });
+            throw new CustomError('User is not found', 404);
         }
 
         return res.status(200).json({
