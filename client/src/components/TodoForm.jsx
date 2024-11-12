@@ -2,24 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { X, CalendarDays, Clock } from 'lucide-react';
 import { validateAddTask } from '../validations/taskValidations';
 
-const TodoForm = ({ onClose, handleSubmit, handleLoading, selectedTodo }) => {
+const TodoForm = ({ onClose, handleLoading, selectedTodo, handleSubmit }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    dueDate: new Date().toISOString().split('T')[0], // Today's date as default
-    dueTime: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }), // Current time as default
+    dueDate: new Date().toISOString().split('T')[0],
+    dueTime: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
   });
-
   const [errors, setErrors] = useState({});
 
   // Set form data when selectedTodo changes
   useEffect(() => {
     if (selectedTodo) {
+      const dueDateTime = new Date(selectedTodo.dueDate);
       setFormData({
         title: selectedTodo.title || '',
         description: selectedTodo.description || '',
-        dueDate: selectedTodo.dueDate || new Date().toISOString().split('T')[0], // Default to today
-        dueTime: selectedTodo.dueTime || new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }), // Default to current time
+        dueDate: dueDateTime.toISOString().split('T')[0],
+        dueTime: dueDateTime.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
       });
     }
   }, [selectedTodo]);
@@ -40,10 +40,10 @@ const TodoForm = ({ onClose, handleSubmit, handleLoading, selectedTodo }) => {
     // If no validation errors, submit the form data
     if (Object.keys(validationErrors).length === 0) {
       try {
-        await handleSubmit(formData); // Call the parent component's handleSubmit
+        await handleSubmit(formData);
         onClose(); // Close modal after submission
       } catch (error) {
-        console.error('Error adding task:', error);
+        console.error('Error adding/updating task:', error);
       }
     }
   };
@@ -52,7 +52,7 @@ const TodoForm = ({ onClose, handleSubmit, handleLoading, selectedTodo }) => {
   useEffect(() => {
     setErrors({});
   }, [formData]);
-
+  
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-7 z-50">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md">

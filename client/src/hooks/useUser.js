@@ -7,12 +7,14 @@ const useUser = () => {
     const[success, setSuccess] = useState(false);
     const[userData, setUserData] = useState(null);
 
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+
     const fetchUser=async()=>{
         setLoading(true);
         setError(false);
 
         try {
-            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/users`,{
+            const response = await axios.get(`${baseUrl}/user/users`,{
                 withCredentials: true //To access automatically httpyOnly cookies
             });
             const{ data } = response;
@@ -34,7 +36,7 @@ const useUser = () => {
         setError(false);
 
         try {
-            await axios.patch(`${import.meta.env.VITE_BASE_URL}/user/change-password`,formData,{
+            await axios.patch(`${baseUrl}/user/change-password`,formData,{
                 withCredentials: true //To access automatically httpyOnly cookies
             });
             console.log("Chnaged password")

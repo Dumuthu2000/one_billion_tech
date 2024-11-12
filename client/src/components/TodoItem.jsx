@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { CalendarDays, Clock, Trash2, Edit2, CheckCircle } from 'lucide-react';
 
-const TodoItem = ({ todo, onEdit }) => {
+const TodoItem = ({ todo, onEdit, onDelete }) => {
+
+  console.log({todo})
   const { taskId, title, description, dueDate, dueTime } = todo;
   const formattedDate = dueDate.toString().split('T')[0];
   const [isCompleted, setIsCompleted] = useState(false);
@@ -11,14 +13,16 @@ const TodoItem = ({ todo, onEdit }) => {
                       String(today.getMonth() + 1).padStart(2, '0') + '-' + 
                       String(today.getDate()).padStart(2, '0');
 
-  const onDelete = async() => {
-  };
 
   const getPriorityStyles = () => {
     if (formattedDate === currentDate) {
       return 'bg-gradient-to-r from-rose-50 to-pink-50 border-l-4 border-l-rose-500 hover:shadow-rose-100';
     }
     return 'bg-white hover:bg-gradient-to-r hover:from-indigo-50/50 hover:to-purple-50/50 hover:shadow-indigo-100/50';
+  };
+
+  const handleDeleteClick = () => {
+    onDelete(todo.taskId); // Pass taskId to the onDelete function
   };
 
   return (
@@ -73,7 +77,7 @@ const TodoItem = ({ todo, onEdit }) => {
               <Edit2 className="h-5 w-5" />
             </button>
             <button 
-              onClick={onDelete} 
+              onClick={handleDeleteClick} 
               className="p-2 text-rose-600 hover:bg-rose-50 rounded-full transition-all duration-200 hover:shadow-sm"
             >
               <Trash2 className="h-5 w-5" />
