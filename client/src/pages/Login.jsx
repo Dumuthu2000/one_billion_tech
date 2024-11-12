@@ -13,7 +13,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  //Handle inpu change
+  //Handle inpu changed
   const handleChange=(e)=>{
     setFormData({...formData, [e.target.name]: e.target.value});
   };
