@@ -15,6 +15,17 @@ const ChangePassword = () => {
   const[errors, setErrors] = useState({});
   const navigate = useNavigate();
 
+  // Clear form data when password change is successful
+  useEffect(() => {
+    if (success) {
+      setFormData({
+        currentPassword: '',
+        newPassword: '',
+        confirmNewPassword: ''
+      });
+    }
+  }, [success]);
+
   //Handling user input changes
   const hanldeChange=(e)=>{
     setFormData({ ...formData, [e.target.name]: e.target.value });

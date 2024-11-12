@@ -16,7 +16,7 @@ export const validateChangePassword=(formData)=>{
     // Confirm password validation
     if (!formData.confirmNewPassword) {
       newErrors.confirmNewPassword = 'New Password is required';
-    } else if (formData.confirmNewPassword != formData.currentPassword) {
+    } else if (formData.newPassword != formData.confirmNewPassword) {
       newErrors.confirmNewPassword = 'Confirm password is invalid';
     }
 
