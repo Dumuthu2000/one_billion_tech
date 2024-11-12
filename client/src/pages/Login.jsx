@@ -68,7 +68,7 @@ const Login = () => {
           {/* Check submission error */}
           {error && (
             <div className="rounded-md bg-red-50 p-4">
-              <p className="text-sm text-red-700">{error}</p>
+              <p className="text-sm text-red-700">{error.erros}</p>
             </div>
           )}
 
