@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import useAuthor from '../hooks/useAuthor';
+import useAuthenticate from '../hooks/useAuthenticate';
 import { Link, useNavigate } from 'react-router-dom';
 import { validateLogin } from '../validations/loginValidations';
 
 const Login = () => {
-  const { handleLogin, loading, error } = useAuthor();
+  const { handleLogin, loading, error } = useAuthenticate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -43,7 +43,8 @@ const Login = () => {
   }, [formData]);
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
+      <div className="max-w-md w-full space-y-8 p-8 rounded-lg shadow" style={{ background: 'linear-gradient(135deg, #c4c7ff 0%, #b6b8e7 100%)' }}>
+
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in to your account

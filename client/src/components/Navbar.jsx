@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {  User, LogOut } from 'lucide-react';
-import useAuthor from '../hooks/useAuthor';
+import { User, LogOut, Settings, ChevronDown } from 'lucide-react';
+import useAuthenticate from '../hooks/useAuthenticate';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
-  const{ handleLogout } = useAuthor();
+  const { user } = useAuth();
+  const { handleLogout } = useAuthenticate();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleUserLogout=async(e)=>{
+  const username = user.data.email.toString().split('@')[0].charAt(0).toUpperCase() + 
+    user.data.email.toString().split('@')[0].slice(1);
+
+  const handleUserLogout = async(e) => {
     e.preventDefault();
-    console.log("loadahdbasjdbabhjbdasbdjasd")
     try {
       await handleLogout();
       navigate('/login');
@@ -25,14 +29,18 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Fixed Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-800 text-white shadow-md">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 shadow-lg">
         <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center px-4 py-3">
-            {/* Logo */}
+          <div className="flex justify-between items-center px-6 py-4">
+            {/* Logo and Welcome Message */}
             <div className="flex items-center space-x-2">
-              <Link to="/dashboard" className="text-2xl font-bold hover:text-gray-200 transition-colors">
-                TODO
+              <Link 
+                to="/dashboard" 
+                className="text-xl font-semibold text-white hover:text-purple-200 transition-colors"
+              >
+                <span className="bg-gradient-to-r from-purple-200 via-purple-100 to-white bg-clip-text text-transparent">
+                  {username ? `Welcome, ${username}` : 'User'}
+                </span>
               </Link>
             </div>
 
@@ -40,33 +48,48 @@ const Navbar = () => {
             <div className="relative">
               <button
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="flex items-center focus:outline-none"
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 group border border-white/20"
                 aria-label="Open profile menu"
               >
-                <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center hover:bg-gray-700 transition-colors">
-                  <User className="h-5 w-5" />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 flex items-center justify-center text-white shadow-md">
+                  <User className="h-4 w-4" />
                 </div>
+                <span className="text-gray-100 font-medium hidden sm:block">Account</span>
+                <ChevronDown className={`h-4 w-4 text-gray-200 transition-transform duration-300 ${isProfileOpen ? 'rotate-180' : ''}`} />
               </button>
 
-              {/* Dropdown Menu */}
+              {/* Enhanced Dropdown Menu */}
               {isProfileOpen && (
-                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white text-gray-800 ring-1 ring-black ring-opacity-5">
-                  <div className="py-1">
+                <div className="absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-slate-800 border border-purple-500/20 transform transition-all duration-300">
+                  <div className="p-2 space-y-1">
+                    <div className="px-3 py-2 text-sm text-gray-400">
+                      Signed in as <br />
+                      <span className="font-medium text-purple-200">{user.data.email}</span>
+                    </div>
+                    <div className="h-px bg-gray-700 my-2" />
                     <Link
                       to="/profile"
-                      className="flex items-center px-4 py-2 text-sm hover:bg-gray-100 transition-colors"
+                      className="flex items-center px-3 py-2 text-sm text-gray-200 rounded-lg hover:bg-white/10 transition-colors"
                       onClick={closeDropdown}
                     >
-                      <User className="h-4 w-4 mr-2" />
+                      <User className="h-4 w-4 mr-2 text-purple-400" />
                       Profile
                     </Link>
-                    <hr className="my-1" />
+                    <Link
+                      to="/settings"
+                      className="flex items-center px-3 py-2 text-sm text-gray-200 rounded-lg hover:bg-white/10 transition-colors"
+                      onClick={closeDropdown}
+                    >
+                      <Settings className="h-4 w-4 mr-2 text-purple-400" />
+                      Settings
+                    </Link>
+                    <div className="h-px bg-gray-700 my-2" />
                     <button
                       onClick={handleUserLogout}
-                      className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                      className="flex items-center w-full px-3 py-2 text-sm text-red-400 rounded-lg hover:bg-red-500/10 transition-colors"
                     >
                       <LogOut className="h-4 w-4 mr-2" />
-                      Logout
+                      Sign out
                     </button>
                   </div>
                 </div>
@@ -76,8 +99,8 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Spacer div to prevent content from hiding behind fixed navbar */}
-      <div className="h-14"></div>
+      {/* Spacer with subtle gradient shadow */}
+      <div className="h-16 bg-gradient-to-b from-slate-900/5 to-transparent"></div>
     </>
   );
 };
