@@ -8,6 +8,8 @@ import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ChangePassword from './pages/ChangePassword';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
           {/*Public routes*/}
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
+          <Route path='/forgot-password' element={<ForgotPassword/>}/>
+          <Route path='/user/reset-token' element={<ResetPassword/>}/>
 
           {/*Protected routes*/}
           <Route path='/dashboard' element={

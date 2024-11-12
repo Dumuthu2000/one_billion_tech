@@ -71,7 +71,7 @@ const useAuthenticate = () => {
         }
     }
 
-    //Forgot password sending email
+    //Request reset password sending email
     const requestResetPasswordAPI=async(email)=>{
         setLoading(true);
         setError(false);
@@ -89,6 +89,24 @@ const useAuthenticate = () => {
         }
     }
 
-    return { handleLogin, handleSignup, handleLogout, requestResetPasswordAPI, loading, error };
+    //Reset password
+    const resetPasswordAPI=async(formData)=>{
+        setLoading(true);
+        setError(false);
+
+        try {
+            await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/reset-password`, 
+                formData, {
+                    withCredentials: true, //To access automatically httpyOnly cookies
+                });
+            setLoading(false);
+        } catch (error) {
+            setError(error.response?.data?.message || 'Something went wrong');
+            setLoading(false);
+            console.log(error.message)
+        }
+    }
+
+    return { handleLogin, handleSignup, handleLogout, requestResetPasswordAPI, resetPasswordAPI, loading, error };
 }
 export default useAuthenticate;
