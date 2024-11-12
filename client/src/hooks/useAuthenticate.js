@@ -28,7 +28,8 @@ const useAuthenticate = () => {
 
       setLoading(false);
     } catch (error) {
-      setError(error.response?.data?.message || 'Something went wrong');
+      console.log(error.response?.data?.error)
+      setError(error.response?.data?.error || 'Something went wrong');
       setLoading(false);
     }
   };

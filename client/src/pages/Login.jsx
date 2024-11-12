@@ -17,7 +17,6 @@ const Login = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   //Handle form subbmission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +31,7 @@ const Login = () => {
         await handleLogin(formData);
         navigate('/dashboard');
       } catch (error) {
-        console.error(error);
+        setErrors(error.message);
       }
     }
   };
@@ -68,7 +67,7 @@ const Login = () => {
           {/* Check submission error */}
           {error && (
             <div className="rounded-md bg-red-50 p-4">
-              <p className="text-sm text-red-700">{error.erros}</p>
+              <p className="text-sm text-red-700">{error}</p>
             </div>
           )}
 
