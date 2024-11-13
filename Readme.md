@@ -112,80 +112,46 @@ The Forgot Password feature uses MailTrap to send password reset emails. To enab
    EMAIL_USER= <your-mailtrap-username>
    EMAIL_PASSWORD= <your-mailtrap-password>
 
-## Database Setup
+## Database Setup Instructions (MySQL)
 
-To set up the database on your computer, follow these steps:
+### Download and Install MySQL
+1. Download MySQL from the [official MySQL website](https://dev.mysql.com/downloads/installer/).
+2. Run the installer and follow the setup steps:
+   - Select **Server Only** setup for minimal installation.
+   - Set up a **root password** (you'll need this later).
 
-### Option 1: Directly Create a New Database and Run SQL Queries
+### Start the MySQL Server
+1. Start the MySQL server:
 
-You can create a new database and import the SQL queries directly from the `server/scripts/todo-list-one-billion-tech.sql` file.
+   - **On Windows**: 
+     - Open the **Start Menu** and search for **Services**.
+     - In the Services window, find **MySQL** (or **MySQL80** for MySQL 8.0).
+     - Right-click and select **Start** to start the MySQL server.
 
-1. **Create a New Database**:
-   - Open your MySQL client (such as MySQL Workbench, phpMyAdmin, or the MySQL command line).
-   - Run the following SQL command to create a new database:
-     ```sql
-     CREATE DATABASE todo-list-one-billion-tech;
+   - **On macOS**: 
+     - If you installed MySQL through the **DMG installer**, go to **System Preferences** and click on **MySQL**.
+     - Click **Start MySQL Server**.
+     - If you installed it using **Homebrew**, run the following command in the terminal:
+       ```bash
+       brew services start mysql
+       ```
+
+   - **On Linux**:
+     - Use the following command in the terminal:
+       ```bash
+       sudo service mysql start
+       ```
+     - Alternatively, if you're using `systemctl`:
+       ```bash
+       sudo systemctl start mysql
+       ```
+
      ```
 
-2. **Import the SQL File**:
-   - After creating the new database (`todo-list-one-billion-tech`), you can directly import the SQL queries from the `server/scripts/todo-list-one-billion-tech.sql` file.
-   
-   - To do this, use the following SQL command in your MySQL client:
-     ```sql
-     SOURCE /path/to/your/project/server/database/db.sql;
-     ```
-     - Replace `/path/to/your/project/` with the actual path to your project directory.
-
-3. **Verify the Import**:
-   - After running the queries, check that the tables and data have been correctly created in the `myDb` database.
-   - You can do this by listing the tables in your database:
-     ```sql
-     SHOW TABLES;
-     ```
-
-4. **Configure Your `.env` File**:
-   - Update your `.env` file in the **server directory** with the database connection details to match the newly created database:
-     ```env
-     DB_HOST= 'localhost'
-     DB_USER= 'root'
-     DB_PASSWORD= ''
-     DB_NAME= 'todo-list-one-billion-tech'
-     ```
-   - Save the `.env` file after updating the database details.
-
-Once the database is set up and the `.env` file is configured, you can proceed to run the server and client applications.
-
-
-
-### Option 2: Using XAMPP (PHPMyAdmin)
-
-1. **Install XAMPP**:
-   If you don’t have XAMPP installed, download and install it from [here](https://www.apachefriends.org/index.html). XAMPP comes with MySQL and PHPMyAdmin, which makes it easy to manage databases.
-
-2. **Start the MySQL Server**:
-   Open the XAMPP Control Panel and start the **MySQL** service.
-
-3. **Access PHPMyAdmin**:
-   - Open your browser and go to [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
-   - Create a new database by clicking on the "Databases" tab and entering a name for your database.
-
-4. **Import the SQL File**:
-   - After creating the database, select it from the left sidebar.
-   - Click on the "Import" tab at the top.
-   - In the "File to Import" section, click "Choose File" and select the `todo-list-one-billion-tech.sql.sql` file located in the `server/scripts` folder of your project.
-   - Click "Go" to start the import process.
-
-5. **Verify the Import**:
-   - After the import is complete, you should see the tables created in the selected database. You can check the tables by clicking on the database name in the left sidebar.
-
-6. **Configure Your `.env` File**:
-   - Update your `.env` file with the database connection details:
-   
-   ```env
-   DB_HOST = 'localhost'
-   DB_USER = 'root'
-   DB_PASSWORD = ''
-   DB_NAME = 'todo-list-one-billion-tech'
+### Open MySQL Command Line
+1. Open a terminal or command prompt, and log in with the root user:
+   ```bash
+   mysql -u root -p
 
 ## 🚀Run The Application
 1. **Start Backend:**
@@ -248,3 +214,6 @@ Sent Email
 
 Reset Password
 ![resetPassword](https://github.com/user-attachments/assets/78d07f9a-d3e7-4fc7-b77b-2a54efa57930)
+
+Mobile Responsive 
+![mobileView](https://github.com/user-attachments/assets/c2465687-f97b-4ecf-931e-de762fe31c9c)
