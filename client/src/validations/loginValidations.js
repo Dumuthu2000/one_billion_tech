@@ -11,7 +11,7 @@ export const validateLogin = (formData) => {
   // Password validation
   if (!formData.password) {
     newErrors.password = 'Password is required';
-  } 
+  }
 
   // Always return an object
   return newErrors;

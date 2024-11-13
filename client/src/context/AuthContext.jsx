@@ -12,9 +12,9 @@ export const AuthProvider = ({ children }) => {
   const checkAuthStatus = async () => {
     try {
       const response = await axios.get(`${baseUrl}/auth/verify`, {
-        withCredentials: true
+        withCredentials: true,
       });
-      
+
       if (response.data.user) {
         setUser(response.data.user);
       }

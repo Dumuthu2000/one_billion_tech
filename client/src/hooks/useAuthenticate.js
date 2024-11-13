@@ -15,13 +15,9 @@ const useAuthenticate = () => {
     setError(null);
 
     try {
-      const response = await axios.post(
-        `${baseUrl}/auth/login`,
-        formData,
-        {
-          withCredentials: true, //To access automatically httpyOnly cookies
-        }
-      );
+      const response = await axios.post(`${baseUrl}/auth/login`, formData, {
+        withCredentials: true, //To access automatically httpyOnly cookies
+      });
 
       //Destructuring response data
       const { data } = response;
@@ -30,7 +26,7 @@ const useAuthenticate = () => {
 
       setLoading(false);
     } catch (error) {
-      console.log(error.response?.data?.error)
+      console.log(error.response?.data?.error);
       setError(error.response?.data?.error || 'Something went wrong');
       setLoading(false);
     }
@@ -42,13 +38,9 @@ const useAuthenticate = () => {
     setError(false);
 
     try {
-      const response = await axios.post(
-        `${baseUrl}/auth/register`,
-        formData,
-        {
-          withCredentials: true, //To access automatically httpyOnly cookies
-        }
-      );
+      const response = await axios.post(`${baseUrl}/auth/register`, formData, {
+        withCredentials: true, //To access automatically httpyOnly cookies
+      });
       const { data } = response;
       //Store user data globally
       signup(data);
@@ -111,13 +103,9 @@ const useAuthenticate = () => {
     setError(false);
 
     try {
-      await axios.post(
-        `${baseUrl}/auth/reset-password`,
-        formData,
-        {
-          withCredentials: true, //To access automatically httpyOnly cookies
-        }
-      );
+      await axios.post(`${baseUrl}/auth/reset-password`, formData, {
+        withCredentials: true, //To access automatically httpyOnly cookies
+      });
       setLoading(false);
     } catch (error) {
       setError(error.response?.data?.message || 'Something went wrong');

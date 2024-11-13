@@ -15,12 +15,9 @@ const useTodo = () => {
     setError(null); // Reset error state before fetching
 
     try {
-      const response = await axios.get(
-        `${baseUrl}/task/tasks`,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get(`${baseUrl}/task/tasks`, {
+        withCredentials: true,
+      });
 
       const { data } = response;
       setTodoList(data.tasks); // Store the fetched tasks in todoList
@@ -38,13 +35,9 @@ const useTodo = () => {
     setError(null);
 
     try {
-      const response = await axios.post(
-        `${baseUrl}/task/tasks`,
-        formData,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`${baseUrl}/task/tasks`, formData, {
+        withCredentials: true,
+      });
 
       const { data } = response;
 
@@ -66,12 +59,9 @@ const useTodo = () => {
     setError(null);
 
     try {
-      const response = await axios.get(
-        `${baseUrl}/task/tasks/${taskId}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get(`${baseUrl}/task/tasks/${taskId}`, {
+        withCredentials: true,
+      });
       const { data } = response;
       setSelectedTodo(data);
       setLoading(false);
@@ -110,12 +100,9 @@ const useTodo = () => {
     setError(null);
 
     try {
-      const response = await axios.delete(
-        `${baseUrl}/task/tasks/${taskId}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.delete(`${baseUrl}/task/tasks/${taskId}`, {
+        withCredentials: true,
+      });
       if (response.status) {
         await fetchTodoList();
       }
