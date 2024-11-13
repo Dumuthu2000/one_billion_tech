@@ -2,7 +2,7 @@
 
 This project is an assignment to demonstrate skills in front-end and back-end development, focusing on creating a responsive user interface with a user registration and authentication system. It includes a dashboard with a to-do list feature, enabling users to manage tasks efficiently. This project combines design and programming to bridge the gap between the front-end and back-end, ensuring a seamless user experience.
 
-## Features
+## 🔌Features
 
 1. **User Management**
    - User registration
@@ -17,7 +17,7 @@ This project is an assignment to demonstrate skills in front-end and back-end de
    - View all tasks with sorting options by date and time
    - Highlight today's tasks
 
-## Tech Stack
+## 🔰Tech Stack
 
 **Client:** React, TailwindCSS
 
@@ -25,11 +25,11 @@ This project is an assignment to demonstrate skills in front-end and back-end de
 
 **Database:** MySQL with Sequelize (ORM)
 
-## Getting Started
+## ⚡Getting Started
 
 To run this application on your computer, follow these steps.
 
-### Prerequisites
+### 📓Prerequisites
 
 Ensure you have the following installed:
 - **Node.js** and **npm**: [Download here](https://nodejs.org/)
@@ -37,7 +37,7 @@ Ensure you have the following installed:
 - **Git**: [Download here](https://git-scm.com/)
 
 
-### Installation
+## 🔩Installation
 
 1. **Clone the repository:**
    ```bash
@@ -53,7 +53,7 @@ Ensure you have the following installed:
    cd client
    npm install
 
-## Environment Variables
+## 📦Environment Variables
 
 The following environment variables are used in the application. Please ensure to create two .env files for server and client
 ### Server Configuration
@@ -79,7 +79,7 @@ The following environment variables are used in the application. Please ensure t
 #### Backend URL Configuration
 - `VITE_BASE_URL`: URL for server.
 
-## Environment Setup
+## 🔥Environment Setup
 
 To configure your environment variables, follow these steps:
 
@@ -112,9 +112,6 @@ The Forgot Password feature uses MailTrap to send password reset emails. To enab
    EMAIL_USER= <your-mailtrap-username>
    EMAIL_PASSWORD= <your-mailtrap-password>
 
-### Database Setup
-
-To set up the database on your computer, follow these steps:
 ## Database Setup
 
 To set up the database on your computer, follow these steps:
@@ -189,4 +186,39 @@ Once the database is set up and the `.env` file is configured, you can proceed t
    DB_USER = 'root'
    DB_PASSWORD = ''
    DB_NAME = 'todo-list-one-billion-tech'
+
+## 🚀Run The Application
+1. **Start Backend:**
+   ```bash
+   npm start
+
+2. **Start Frontend:**
+   ```bash
+   npm run dev
+
+3. **Open The Applicatio:**
+   ```bash
+   ➜  Local:   http://localhost:5173/
+   ➜  Network: use --host to expose
+   ➜  press h + enter to show help
+
+
+## 🌟Acknowledgements
+I would like to acknowledge and thank the following resources, libraries, and contributors for their support:
+
+- **[Node.js](https://nodejs.org/)** - For building the backend of this project.
+- **[React.js](https://reactjs.org/)** - For creating the frontend of this project.
+- **[MySQL](https://www.mysql.com/)** - Used for the database management.
+- **[Express.js](https://expressjs.com/)** - For building the RESTful API.
+- **[Sequelize](https://sequelize.org/)** - For Object Relational Mapping (ORM) between Node.js and MySQL database.
+- **[MailTrap](https://mailtrap.io/)** - Used for sending password reset emails during development.
+- **[XAMPP](https://www.apachefriends.org/index.html)** - For local development and testing with MySQL.
+- **[bcrypt](https://www.npmjs.com/package/bcrypt)** - For password hashing and security.
+- **[JWT](https://jwt.io/)** - For generating and verifying JSON Web Tokens for secure authentication.
+- **[Crypto](https://nodejs.org/api/crypto.html)** - For generating secure tokens, including for password reset functionality.
+
+
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
