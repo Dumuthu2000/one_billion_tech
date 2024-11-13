@@ -1,5 +1,11 @@
-import express from 'express'
-import { createTask, deleteTask, editTask, fetchTasks, updateTask } from '../controllers/taskController.js';
+import express from 'express';
+import {
+  createTask,
+  deleteTask,
+  editTask,
+  fetchTasks,
+  updateTask
+} from '../controllers/taskController.js';
 import { validateTask } from '../middlewares/taskValidator.js';
 import { verifyToken } from '../middlewares/authMiddleware.js';
 
