@@ -219,6 +219,32 @@ I would like to acknowledge and thank the following resources, libraries, and co
 
 
 ## Screenshots
+Sign In
+![login](https://github.com/user-attachments/assets/b9e14099-0040-4646-adb0-0a2dafd8df34)
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+Sign Up
+![signup](https://github.com/user-attachments/assets/5e46e974-9332-4b7c-b6bf-6c5f84195500)
 
+Dashaord
+![dashboard](https://github.com/user-attachments/assets/7c77dfc6-42d1-4956-ad49-b845d3b73e03)
+
+Add New Todo
+![addTodo](https://github.com/user-attachments/assets/6caecd2c-ba54-40fb-952d-2bd31bead8e5)
+
+Edit Todo
+![editTask](https://github.com/user-attachments/assets/e865bc2b-bb20-4692-9536-1febaa466d81)
+
+User Profile
+![userProfile](https://github.com/user-attachments/assets/2cb06d86-480e-4d24-a4dd-f42e2fe88d88)
+
+Change Password
+![changePassword](https://github.com/user-attachments/assets/2a5ccc22-a2f0-4b94-9917-c0c9ed1d83e0)
+
+Forgot Password
+![forgotPassword](https://github.com/user-attachments/assets/66ca5f4a-ece2-410a-b615-ba8386c9236a)
+
+Sent Email
+![emailServer](https://github.com/user-attachments/assets/22edc235-b6ff-43f1-a355-4851fa21bcea)
+
+Reset Password
+![resetPassword](https://github.com/user-attachments/assets/78d07f9a-d3e7-4fc7-b77b-2a54efa57930)
