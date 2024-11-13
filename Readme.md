@@ -112,46 +112,48 @@ The Forgot Password feature uses MailTrap to send password reset emails. To enab
    EMAIL_USER= <your-mailtrap-username>
    EMAIL_PASSWORD= <your-mailtrap-password>
 
-## Database Setup Instructions (MySQL)
+## Database Setup
 
-### Download and Install MySQL
-1. Download MySQL from the [official MySQL website](https://dev.mysql.com/downloads/installer/).
-2. Run the installer and follow the setup steps:
-   - Select **Server Only** setup for minimal installation.
-   - Set up a **root password** (you'll need this later).
+This guide provides step-by-step instructions to install MySQL and create a database named `todo-list-one-billion-tech `.
 
-### Start the MySQL Server
-1. Start the MySQL server:
+### Creating MySQL Database in CLI
 
-   - **On Windows**: 
-     - Open the **Start Menu** and search for **Services**.
-     - In the Services window, find **MySQL** (or **MySQL80** for MySQL 8.0).
-     - Right-click and select **Start** to start the MySQL server.
+1. Open the **MySQL Command Line Client**:
+   - You can find it in the Start menu under `MySQL` or simply search for "MySQL Command Line Client".
+   - When prompted, enter the MySQL root password that you set during installation.
 
-   - **On macOS**: 
-     - If you installed MySQL through the **DMG installer**, go to **System Preferences** and click on **MySQL**.
-     - Click **Start MySQL Server**.
-     - If you installed it using **Homebrew**, run the following command in the terminal:
-       ```bash
-       brew services start mysql
-       ```
+2. In the MySQL CLI, run the following command to create a new database named `myDb`:
+   ```sql
+   CREATE DATABASE todo-list-one-billion-tech;
 
-   - **On Linux**:
-     - Use the following command in the terminal:
-       ```bash
-       sudo service mysql start
-       ```
-     - Alternatively, if you're using `systemctl`:
-       ```bash
-       sudo systemctl start mysql
-       ```
+### Creating MySQL Database on XAMPP
 
-     ```
+### Prerequisites
+- Ensure XAMPP is installed and running on your Windows machine.
+- Start the Apache and MySQL modules in the XAMPP Control Panel.
 
-### Open MySQL Command Line
-1. Open a terminal or command prompt, and log in with the root user:
-   ```bash
-   mysql -u root -p
+### Steps to Create Database `todo-list-one-billion-tech` in XAMPP
+
+1. **Open phpMyAdmin**:
+   - Launch XAMPP and make sure the Apache and MySQL services are running.
+   - Open a web browser and go to [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
+
+2. **Create the Database**:
+   - In phpMyAdmin, look at the top menu and click on **Databases**.
+   - In the **Create database** field, enter `todo-list-one-billion-tech` as the database name.
+   - Leave the collation as default (usually `utf8mb4_general_ci`), or select one based on your requirements.
+   - Click **Create** to create the database.
+
+3. **Verify the Database**:
+   - After creating it, you should see `todo-list-one-billion-tech` listed on the left sidebar under the list of databases..
+
+---
+
+### Additional Tips
+
+- You can use phpMyAdmin to manage your database, run SQL queries, and perform other MySQL operations.
+- For more advanced configurations, refer to the [phpMyAdmin Documentation](https://docs.phpmyadmin.net/).
+
 
 ## 🚀Run The Application
 1. **Start Backend:**
