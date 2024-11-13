@@ -222,12 +222,8 @@ I would like to acknowledge and thank the following resources, libraries, and co
 Sign In
 ![login](https://github.com/user-attachments/assets/b9e14099-0040-4646-adb0-0a2dafd8df34)
 
-<<<<<<< HEAD
 Sign Up
 ![signup](https://github.com/user-attachments/assets/5e46e974-9332-4b7c-b6bf-6c5f84195500)
-=======
-![dashboard](https://github.com/user-attachments/assets/7c77dfc6-42d1-4956-ad49-b845d3b73e03)
->>>>>>> 38f37a26fdc1117c116f602d413c06802533f50a
 
 Dashaord
 ![dashboard](https://github.com/user-attachments/assets/7c77dfc6-42d1-4956-ad49-b845d3b73e03)
