@@ -1,7 +1,4 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
-const navigate = useNavigate();
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL,
@@ -28,7 +25,7 @@ axiosInstance.interceptors.response.use(
         if(error.response){
             if(error.response.status === 401){
                 console.log(`Unauthorized! Redirecting to the login...`);
-                navigate(`/login`);
+                window.location.href = '/login'
             }
         }
         return Promise.reject(error);

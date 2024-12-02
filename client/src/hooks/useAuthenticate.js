@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import axiosInstance from '../services/axiosInstance';
 
-const baseUrl = import.meta.env.VITE_BASE_URL;
+// const baseUrl = import.meta.env.VITE_BASE_URL;
 
 const useAuthenticate = () => {
   const [loading, setLoading] = useState(false);
@@ -15,9 +16,10 @@ const useAuthenticate = () => {
     setError(null);
 
     try {
-      const response = await axios.post(`${baseUrl}/auth/login`, formData, {
-        withCredentials: true, //To access automatically httpyOnly cookies
-      });
+      // const response = await axios.post(`${baseUrl}/auth/login`, formData, {
+      //   withCredentials: true, //To access automatically httpyOnly cookies
+      // });
+      const response = await axiosInstance.post(`auth/login`,formData);
 
       //Destructuring response data
       const { data } = response;
@@ -38,9 +40,10 @@ const useAuthenticate = () => {
     setError(false);
 
     try {
-      const response = await axios.post(`${baseUrl}/auth/register`, formData, {
-        withCredentials: true, //To access automatically httpyOnly cookies
-      });
+      // const response = await axios.post(`${baseUrl}/auth/register`, formData, {
+      //   withCredentials: true, //To access automatically httpyOnly cookies
+      // });
+      const response = await axiosInstance.post(`/auth/register`, formData);
       const { data } = response;
       //Store user data globally
       signup(data);
