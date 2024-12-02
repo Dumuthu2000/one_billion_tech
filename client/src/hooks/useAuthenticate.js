@@ -16,10 +16,7 @@ const useAuthenticate = () => {
     setError(null);
 
     try {
-      // const response = await axios.post(`${baseUrl}/auth/login`, formData, {
-      //   withCredentials: true, //To access automatically httpyOnly cookies
-      // });
-      const response = await axiosInstance.post(`auth/login`,formData);
+      const response = await axiosInstance.post(`/auth/login`,formData);
 
       //Destructuring response data
       const { data } = response;
@@ -40,9 +37,6 @@ const useAuthenticate = () => {
     setError(false);
 
     try {
-      // const response = await axios.post(`${baseUrl}/auth/register`, formData, {
-      //   withCredentials: true, //To access automatically httpyOnly cookies
-      // });
       const response = await axiosInstance.post(`/auth/register`, formData);
       const { data } = response;
       //Store user data globally
@@ -61,14 +55,7 @@ const useAuthenticate = () => {
     setError(false);
 
     try {
-      await axios.post(
-        `${baseUrl}/auth/logout`,
-        {},
-        {
-          withCredentials: true, //To access automatically httpyOnly cookies
-        }
-      );
-      //MAke logout user gloabaly
+      await axiosInstance.post(`/auth/logout`, {});
       logout();
 
       setLoading(false);

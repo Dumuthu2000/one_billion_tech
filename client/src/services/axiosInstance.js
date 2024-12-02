@@ -19,7 +19,7 @@ axiosInstance.interceptors.request.use(
 //Create Response interceptor
 axiosInstance.interceptors.response.use(
     (response)=>{
-        response
+        return response
     },
     (error)=>{
         if(error.response){
