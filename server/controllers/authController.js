@@ -75,13 +75,13 @@ export const loginUser = async (req, res, next) => {
     //Check password as user credentials
     const isMatch = await verifyHashingData(password, user.password);
     if (!isMatch) {
-      throw new CustomError('Invalid credentials', 400);
+      // throw new CustomError('Invalid credentials', 400);
+      next(new CustomError('Invalid credentials', 400));
     }
 
     //Create jwt token
     const payload = { id: user.userId };
     const token = generateJwtToken(payload);
-    // const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: '1hr'});
 
     //Setting up JWT token in cookie
     res.cookie('token', token, {

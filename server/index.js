@@ -20,12 +20,14 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(errorHandler);
+// app.use(errorHandler);
 
 //Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/task', taskRoutes);
+
+app.use(errorHandler)
 
 //Sync sequelize models with the database
 sequelize

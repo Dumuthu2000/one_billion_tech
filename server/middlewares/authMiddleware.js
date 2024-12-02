@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import jwt from 'jsonwebtoken';
 
+//Route specific middleware
 export const verifyToken = (req, res, next) => {
   //Access JWT token from cookie
   const token = req.cookies.token;

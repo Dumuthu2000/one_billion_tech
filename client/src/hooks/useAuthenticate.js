@@ -60,7 +60,7 @@ const useAuthenticate = () => {
     try {
       await axios.post(
         `${baseUrl}/auth/logout`,
-        {},
+        {}, // Empty body, no data needed for logout
         {
           withCredentials: true, //To access automatically httpyOnly cookies
         }
