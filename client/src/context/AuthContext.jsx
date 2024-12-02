@@ -1,8 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../services/axiosInstance';
 
 const AuthContext = createContext();
-const baseUrl = import.meta.env.VITE_BASE_URL;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -11,10 +10,7 @@ export const AuthProvider = ({ children }) => {
   // Function to check authentication status
   const checkAuthStatus = async () => {
     try {
-      const response = await axios.get(`${baseUrl}/auth/verify`, {
-        withCredentials: true,
-      });
-
+      const response = await axiosInstance.get(`/auth/verify`);
       if (response.data.user) {
         setUser(response.data.user);
       }
