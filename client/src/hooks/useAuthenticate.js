@@ -3,8 +3,6 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../services/axiosInstance';
 
-// const baseUrl = import.meta.env.VITE_BASE_URL;
-
 const useAuthenticate = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

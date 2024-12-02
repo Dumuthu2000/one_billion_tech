@@ -8,8 +8,6 @@ const useTodo = () => {
   const [todoList, setTodoList] = useState([]);
   const [selectedTodo, setSelectedTodo] = useState(null);
 
-  // const baseUrl = import.meta.env.VITE_BASE_URL;
-
   //Fetching TO-DO tasks that logged-in user
   const fetchTodoList = async () => {
     setLoading(true);
@@ -17,9 +15,6 @@ const useTodo = () => {
 
     try {
       const response = await axiosInstance.get(`/task/tasks`);
-      // const response = await axios.get(`${baseUrl}/task/tasks`, {
-      //   withCredentials: true,
-      // });
 
       const { data } = response;
       setTodoList(data.tasks); // Store the fetched tasks in todoList
@@ -38,10 +33,6 @@ const useTodo = () => {
 
     try {
       const response = await axiosInstance.post(`/task/tasks`, formData);
-      // const response = await axios.post(`${baseUrl}/task/tasks`, formData, {
-      //   withCredentials: true,
-      // });
-
       const { data } = response;
 
       //Add new task to the existing list of tasks
@@ -63,9 +54,6 @@ const useTodo = () => {
 
     try {
       const response = await axios.get(`/task/tasks/${taskId}`);
-      // const response = await axios.get(`${baseUrl}/task/tasks/${taskId}`, {
-      //   withCredentials: true,
-      // });
       const { data } = response;
       setSelectedTodo(data);
       setLoading(false);
@@ -82,13 +70,6 @@ const useTodo = () => {
 
     try {
       const response = await axiosInstance.patch(`/task/tasks/${taskId}`, formData);
-      // const response = await axios.patch(
-      //   `${baseUrl}/task/tasks/${taskId}`,
-      //   formData,
-      //   {
-      //     withCredentials: true,
-      //   }
-      // );
       if (response.status) {
         await fetchTodoList();
       }
@@ -106,9 +87,6 @@ const useTodo = () => {
 
     try {
       const response = await axiosInstance.delete(`/task/tasks/${taskId}`);
-      // const response = await axios.delete(`${baseUrl}/task/tasks/${taskId}`, {
-      //   withCredentials: true,
-      // });
       if (response.status) {
         await fetchTodoList();
       }
