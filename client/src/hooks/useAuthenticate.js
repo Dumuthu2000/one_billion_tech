@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../services/axiosInstance';
 
@@ -70,13 +69,14 @@ const useAuthenticate = () => {
     setError(false);
 
     try {
-      await axios.post(
-        `${baseUrl}/auth/request-reset-password`,
-        { email },
-        {
-          withCredentials: true, //To access automatically httpyOnly cookies
-        }
-      );
+      await axiosInstance.post(`/auth/request-reset-password`, email);
+      // await axios.post(
+      //   `${baseUrl}/auth/request-reset-password`,
+      //   { email },
+      //   {
+      //     withCredentials: true, //To access automatically httpyOnly cookies
+      //   }
+      // );
       setLoading(false);
     } catch (error) {
       setError(error.response?.data?.message || 'Something went wrong');
@@ -91,9 +91,10 @@ const useAuthenticate = () => {
     setError(false);
 
     try {
-      await axios.post(`${baseUrl}/auth/reset-password`, formData, {
-        withCredentials: true, //To access automatically httpyOnly cookies
-      });
+      await axiosInstance.post(`/auth/reset-password`, formData);
+      // await axios.post(`${baseUrl}/auth/reset-password`, formData, {
+      //   withCredentials: true, //To access automatically httpyOnly cookies
+      // });
       setLoading(false);
     } catch (error) {
       setError(error.response?.data?.message || 'Something went wrong');

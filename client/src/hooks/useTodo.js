@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
 import axiosInstance from '../services/axiosInstance';
 
 const useTodo = () => {
@@ -53,7 +52,7 @@ const useTodo = () => {
     setError(null);
 
     try {
-      const response = await axios.get(`/task/tasks/${taskId}`);
+      const response = await axiosInstance.get(`/task/tasks/${taskId}`);
       const { data } = response;
       setSelectedTodo(data);
       setLoading(false);
