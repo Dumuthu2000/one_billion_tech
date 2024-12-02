@@ -105,10 +105,10 @@ const useTodo = () => {
     setError(null);
 
     try {
-      // const response = await axios.delete(`/task/tasks/${taskId}`);
-      const response = await axios.delete(`${baseUrl}/task/tasks/${taskId}`, {
-        withCredentials: true,
-      });
+      const response = await axiosInstance.delete(`/task/tasks/${taskId}`);
+      // const response = await axios.delete(`${baseUrl}/task/tasks/${taskId}`, {
+      //   withCredentials: true,
+      // });
       if (response.status) {
         await fetchTodoList();
       }
